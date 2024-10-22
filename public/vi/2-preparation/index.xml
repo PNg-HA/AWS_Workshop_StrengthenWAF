@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Preparation on AWS WAF</title>
+    <link>//localhost:1313/vi/2-preparation/</link>
+    <description>Recent content in Preparation on AWS WAF</description>
+    <generator>Hugo</generator>
+    <language>vi</language>
+    <atom:link href="//localhost:1313/vi/2-preparation/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

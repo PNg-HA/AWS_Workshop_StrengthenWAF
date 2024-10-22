@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Khắc phục on AWS WAF</title>
+    <link>//localhost:1313/vi/3-remediate/</link>
+    <description>Recent content in Khắc phục on AWS WAF</description>
+    <generator>Hugo</generator>
+    <language>vi</language>
+    <atom:link href="//localhost:1313/vi/3-remediate/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

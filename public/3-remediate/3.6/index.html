@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.128.2">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="//localhost:1313/images/favicon.png" type="image/png">
+
+    <title>Protect APIs with Request Body Parsing :: AWS WAF</title>
+
+    
+    <link href="//localhost:1313/css/nucleus.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/fontawesome-all.min.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/hybrid.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/featherlight.min.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/perfect-scrollbar.min.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/auto-complete.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/atom-one-dark-reasonable.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/theme.css?1729628240" rel="stylesheet">
+    <link href="//localhost:1313/css/hugo-theme.css?1729628240" rel="stylesheet">
+    
+    <link href="//localhost:1313/css/theme-workshop.css?1729628240" rel="stylesheet">
+    
+    
+
+    <script src="//localhost:1313/js/jquery-3.3.1.min.js?1729628240"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="//localhost:1313/3-remediate/3.6/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="//localhost:1313/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="//localhost:1313/js/lunr.min.js?1729628240"></script>
+<script type="text/javascript" src="//localhost:1313/js/auto-complete.js?1729628240"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/";
+    
+</script>
+<script type="text/javascript" src="//localhost:1313/js/search.js?1729628240"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-introduction/" title="Introduction" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/1-introduction/">
+           <b> 1. </b> Introduction
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-preparation/" title="Preparation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/2-preparation/">
+           <b> 2. </b> Preparation
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/" title="Remediate" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/">
+           <b> 3. </b> Remediate
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.1/" title="Apply Foundational Protection with AWS Managed Rules" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.1/">
+           <b> 3.1 </b> Apply Foundational Protection with AWS Managed Rules
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.2/" title="Protect Paths with Custom Rules" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.2/">
+           <b> 3.2 </b> Protect Paths with Custom Rules
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.3/" title="Gain visibility into Bot Traffic" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.3/">
+           <b> 3.3 </b> Gain visibility into Bot Traffic
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.4/" title="Block Bad Bots with Custom Rules" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.4/">
+           <b> 3.4 </b> Block Bad Bots with Custom Rules
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.5/" title="Rate Limit Bot Traffic and Send Custom Responses" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.5/">
+           <b> 3.5 </b> Rate Limit Bot Traffic and Send Custom Responses
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-remediate/3.6/" title="Protect APIs with Request Body Parsing" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="//localhost:1313/3-remediate/3.6/">
+           <b> 3.6 </b> Protect APIs with Request Body Parsing
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-monitor/" title="Monitor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/4-monitor/">
+           <b> 4. </b> Monitor
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-monitor/4.1/" title="Investigate AWS WAF Logs" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/4-monitor/4.1/">
+           <b> 4.1. </b> Investigate AWS WAF Logs
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-monitor/4.2/" title="Block Mystery Test" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/4-monitor/4.2/">
+           <b> 4.2. </b> Block Mystery Test
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-monitor/4.3/" title="Insert Custom HTTP Request Header" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/4-monitor/4.3/">
+           <b> 4.3. </b> Insert Custom HTTP Request Header
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-optional/" title="Optional" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/5-optional/">
+           <b> 5. </b> Optional
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-optional/5.1/" title="Create a CloudWatch Alarm for an AWS WAF Metric" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/5-optional/5.1/">
+           <b> 5.1. </b> Create a CloudWatch Alarm for an AWS WAF Metric
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-optional/5.2/" title="Review the WAF Bot Dashboard" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/5-optional/5.2/">
+           <b> 5.2. </b> Review the WAF Bot Dashboard
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-optional/5.3/" title="Protect a Web Form Using CAPTCHA" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/5-optional/5.3/">
+           <b> 5.3. </b> Protect a Web Form Using CAPTCHA
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-clean-up/" title="Clean Up" class="dd-item 
+        
+        
+        
+        ">
+      <a href="//localhost:1313/6-clean-up/">
+           <b> 6. </b> Clean Up
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="//localhost:1313/3-remediate/3.6/" selected>English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="//localhost:1313/vi/3-remediate/3.6/">Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>23-10-2024</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i>                 <a href="https://www.linkedin.com/in/anhpnh"  style="color:orange"> Hải Anh </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='//localhost:1313/'>Strengthen your web application defenses with AWS WAF</a> > <a href='//localhost:1313/3-remediate/'>Remediate</a> > Protect APIs with Request Body Parsing
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#scenario">Scenario</a></li>
+        <li><a href="#instructions">Instructions</a></li>
+        <li><a href="#procedure">Procedure</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Protect APIs with Request Body Parsing
+            </h1>
+          
+
+        
+
+
+
+	<h3 id="scenario">Scenario</h3>
+<p>The web store has built an API to help with integrations with their partners. This API is available to retrieve a list of up to 100 products at a time. The development team is working on adding layers of security in the API code. Your task is to add WAF protection that will only allow valid JSON requests and limit the number of listed products to a number between 1 and 100.</p>
+<p>Here is a sample valid JSON used to invoke this API:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;numrecords&#34;</span>:<span style="color:#e6db74">&#34;25&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Only requests with the valid JSON formatting and the valid value for numrecords (1-100 inclusive) should be allowed. The API is available at the path <strong>/api/listproducts.php</strong>. For API requests that do not pass all of the validation steps, the WAF rule should return a 400 http response code. According to RFC 2616, the 400 http response code indicates that the request could not be understood and the client should not repeat the request without modifications.</p>
+<h3 id="instructions">Instructions</h3>
+<p>First, create a regex pattern set that matches the valid value (1-100) for numrecords. Here is a regular expression that you can use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>^0*<span style="color:#f92672">(</span>?:<span style="color:#f92672">[</span>1-9<span style="color:#f92672">][</span>0-9<span style="color:#f92672">]</span>?|100<span style="color:#f92672">)</span>$
+</span></span></code></pre></div><p>Then, create a WAF rule with two statements. One statement should match the URI path of the API (/api/listproducts.php). Another statement needs to inspect the JSON body of incoming API requests, and validate that the JSON syntax is valid. It should also validate the value of &ldquo;numrecords&rdquo; using the regex pattern set. If the URI path matches, but the syntax is not correct, then the WAF rule should return a custom response using a 400 http response code.</p>
+<p>After implementing the new WAF rule to guard against API abuse, test your protection using both manual and automated scans. For manual scans, click on the link in the event outputs. For automated scans, check the Progress Dashboard in Event Outputs .</p>
+<h3 id="procedure">Procedure</h3>
+<p>The procedure below is lengthier and more complex than in previous tasks. Please pay special attention to the steps listed below.</p>
+<h4 id="regex-pattern-set">Regex Pattern Set</h4>
+<p>Create a regex pattern set that matches numbers 1-100:</p>
+<ol>
+<li>
+<p>Navigate to Regex pattern sets and verify the WAF console region selection is correct</p>
+</li>
+<li>
+<p>Click on Create regex pattern set</p>
+</li>
+<li>
+<p>Regex pattern set name: number-1-to-100</p>
+</li>
+<li>
+<p>Regular expressions: <em><em>^0</em>(?:[1-9][0-9]?|100)$</em>*</p>
+</li>
+<li>
+<p>Click on <strong>Create regex pattern</strong></p>
+</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/regrex.png"></p>
+<h4 id="waf-rule">WAF Rule</h4>
+<ol>
+<li>
+<p>Create a regular WAF rule that matches all the statements:</p>
+</li>
+<li>
+<p>Navigate to the Rules tab of the Web ACL</p>
+</li>
+<li>
+<p>Click on Add Rules and select Add my own rules and rule groups</p>
+</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/add_rule.png"></p>
+<h4 id="rule-details">Rule details</h4>
+<ol>
+<li>Rule name: api-protection</li>
+<li>Type: Regular rule</li>
+<li>If a request: Matches all the statements (AND)</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/rule_details.png"></p>
+<h4 id="statement-1">Statement #1</h4>
+<ol>
+<li>Inspect: URI path</li>
+<li>Match type: Exactly matches string</li>
+<li>String to match: /api/listproducts.php</li>
+<li>Text transformation: none</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/s1.png"></p>
+<h4 id="statement-2">Statement #2</h4>
+<ol>
+<li>Negate statement results (checked)</li>
+<li>Inspect: Body</li>
+<li>Content type: JSON</li>
+<li>JSON match scope: Values</li>
+<li>How AWS WAF should handle the request if the JSON in the request body is invalid: <strong>No match</strong></li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/s2.png"></p>
+<p>Match the specific JSON element with the regex statement:</p>
+<ol>
+<li>Content to inspect: Only included elements</li>
+<li>Included elements: /numrecords</li>
+<li>Match type: Matches pattern from regex pattern set</li>
+<li>Regex pattern set: (previosly created pattern set matching numbers 1-100)</li>
+<li>Text transformation: None</li>
+<li>Oversize handling: Continue
+<img alt="1.1" src="//localhost:1313/images/3/6/s2b.png"></li>
+</ol>
+<h4 id="then">Then</h4>
+<ol>
+<li>Action: Block</li>
+<li>Custom response: Enable (checked)</li>
+<li>Response Code: 400</li>
+<li>Click on Add rule</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/then.png"></p>
+<h4 id="rule-priority">Rule priority</h4>
+<ol>
+<li>On the Set rule priority page, click on Save</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/prio_s1.png">
+2. On the Rules tab, verify that the new custom rule is now listed</p>
+<ol start="3">
+<li>You have completed adding the custom rule that checks JSON values in the body of the request and protects your API against incorrect usage. You are now ready to test the protection.</li>
+</ol>
+<h4 id="evaluate-protection-effectiveness">Evaluate protection effectiveness</h4>
+<p>Use both manual and automated testing methods to evaluate the effectiveness of the new rule in your ACL:</p>
+<ol>
+<li>Use manual scanning from the Evaluate section. Validate that API Misuse test is passing.</li>
+</ol>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/e_s1.png">
+2. Review the workshop dashboard and verify that the API Misuse automated scan is passing (the test should be color-coded green). Refer to the Evaluate section for instructions.</p>
+<p><img alt="1.1" src="//localhost:1313/images/3/6/e_s2.png"></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="//localhost:1313/3-remediate/3.5/" title="Rate Limit Bot Traffic and Send Custom Responses"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="//localhost:1313/4-monitor/" title="Monitor" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="//localhost:1313/js/clipboard.min.js?1729628240"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.min.js?1729628240"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.jquery.min.js?1729628240"></script>
+    <script src="//localhost:1313/js/jquery.sticky.js?1729628240"></script>
+    <script src="//localhost:1313/js/featherlight.min.js?1729628240"></script>
+    <script src="//localhost:1313/js/highlight.pack.js?1729628240"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//localhost:1313/js/modernizr.custom-3.6.0.js?1729628240"></script>
+    <script src="//localhost:1313/js/learn.js?1729628240"></script>
+    <script src="//localhost:1313/js/hugo-learn.js?1729628240"></script>
+
+    <link href="//localhost:1313/mermaid/mermaid.css?1729628240" rel="stylesheet" />
+    <script src="//localhost:1313/mermaid/mermaid.js?1729628240"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
