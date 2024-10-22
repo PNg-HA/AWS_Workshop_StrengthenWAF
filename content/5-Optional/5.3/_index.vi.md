@@ -8,7 +8,7 @@ pre : " <b> 5.3. </b> "
 
 #### Kịch bản
 
-Trang web mẫu được triển khai như một phần của hội thảo này có chứa Bài kiểm tra. Vui lòng thêm bảo vệ CAPTCHA AWS WAF vào trang Bài kiểm tra để đảm bảo rằng câu trả lời đến từ người dùng hợp lệ.
+Trang web mẫu được triển khai như một phần của workshop này có chứa Bài kiểm tra. Vui lòng thêm bảo vệ CAPTCHA AWS WAF vào trang Bài kiểm tra để đảm bảo rằng câu trả lời đến từ người dùng hợp lệ.
 
 #### Hướng dẫn
 

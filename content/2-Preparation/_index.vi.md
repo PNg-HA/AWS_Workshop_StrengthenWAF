@@ -1,5 +1,5 @@
 ---
-title : "Preparation"
+title : "Chuẩn bị"
 date : "`r Sys.Date()`"
 weight : 2
 chapter : false
@@ -8,14 +8,14 @@ pre : " <b> 2. </b> "
 
 ### Tải xuống và thực thi tập lệnh thiết lập
 
-Chúng tôi sẽ tải xuống tệp chứa tài nguyên của hội thảo, mẫu CloudFormation được sử dụng để cung cấp chúng và tập lệnh thiết lập. Sau đó, chúng tôi sẽ chạy tập lệnh để triển khai hội thảo trong tài khoản AWS của riêng bạn.
+Ta sẽ tải xuống tệp chứa tài nguyên của workshop, mẫu CloudFormation được sử dụng để cung cấp chúng và tập lệnh thiết lập. Sau đó, ta sẽ chạy tập lệnh để triển khai workshop trong tài khoản AWS của riêng bạn.
 
 1. Tạo một thư mục có tên là "waf-workshop".
 
 2. Chạy mã sau (bạn có thể sao chép và dán tất cả các lệnh lại với nhau):
 
 ```bash
-# Tải xuống tài sản của xưởng
+# Tải xuống tài nguyên của workshop
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/assets/automated-scanner.zip' --output automated-scanner.zip
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/assets/manual-scanner.zip' --output manual-scanner.zip
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/assets/rate-limit-trigger.zip' --output rate-limit-trigger.zip
@@ -27,59 +27,60 @@ curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/deploy-workshop-own-account.sh' --output deploy-workshop-own-account.sh
 ```
 /2
+![1.1](/images/2/2.png)
 3. Chạy tập lệnh khởi động trong thiết bị đầu cuối
 ```bash
 sh deploy-workshop-own-account.sh
 ```
 Nếu bạn gặp lỗi *“syntax error: "(" không mong đợi”*, trong khi chạy tập lệnh
-/3a
+![1.1](/images/2/3a.png)
 Vui lòng chỉnh sửa dòng đầu tiên của tập lệnh từ “#!/bin/bash” thành “#!/bin/bash” và lưu lại.
-/3b
+![1.1](/images/2/3b.png)
 và chạy tập lệnh bằng lệnh sau ```./deploy-workshop-own-account.sh```
-/3c
+![1.1](/images/2/3c.png)
 
-Nếu bạn nhận được thông báo *“Không tạo/cập nhật ngăn xếp được.”* thì hãy sử dụng lệnh ```aws cloudformation describe-stack-events --stack-name waf-workshop``` hoặc kiểm tra trang Stack trong bảng điều khiển CloudFormation để khắc phục sự cố:
-/3d1
-/3d2
+Nếu bạn nhận được thông báo *“Không tạo/cập nhật stack được.”* thì hãy sử dụng lệnh ```aws cloudformation describe-stack-events --stack-name waf-workshop``` hoặc kiểm tra trang Stack trong bảng điều khiển CloudFormation để khắc phục sự cố:
+![1.1](/images/2/3d1.png)
+![1.1](/images/2/3d2.png)
 bạn sẽ thấy rằng bạn phải điều chỉnh MemorySize trong tệp yaml xuống 3008.
-/3d3
-Sau khi chỉnh sửa ngăn xếp yaml, hãy chạy lại tập lệnh. Bạn sẽ đợi trong 15 phút sau đó tác vụ được triển khai thành công.
-/3e
+![1.1](/images/2/3d3.png)
+Sau khi chỉnh sửa stack yaml, hãy chạy lại tập lệnh. Bạn sẽ đợi trong 15 phút sau đó tác vụ được triển khai thành công.
+![1.1](/images/2/3e.png)
 
-Vui lòng nhớ xóa tất cả các tài nguyên đã triển khai (ngăn xếp CloudFormation) sau khi hoàn tất hội thảo để tránh các khoản phí không cần thiết.
+Vui lòng nhớ xóa tất cả các tài nguyên đã triển khai (stack CloudFormation) sau khi hoàn tất workshop để tránh các khoản phí không cần thiết.
 
 ### Đánh giá
 
-Hội thảo này sẽ hướng dẫn bạn cách đánh giá và cải thiện tình trạng bảo mật của ứng dụng web. Môi trường bạn sẽ làm việc bao gồm một ứng dụng web được lưu trữ trên AWS, được thiết kế có chủ đích để dễ bị tấn công. Mục tiêu của bạn là xác định các lỗ hổng này và triển khai các biện pháp bảo mật để giảm thiểu chúng.
+Workshop này sẽ hướng dẫn bạn cách đánh giá và cải thiện tình trạng bảo mật của ứng dụng web. Môi trường bạn sẽ làm việc bao gồm một ứng dụng web được lưu trữ trên AWS, được thiết kế có chủ đích để dễ bị tấn công. Mục tiêu của bạn là xác định các lỗ hổng này và triển khai các biện pháp bảo mật để giảm thiểu chúng.
 
 Sau đây là tổng quan về các bước trong phần này:
 1. Hiểu kiến ​​trúc: Hiểu kiến ​​trúc đã triển khai và xác định các thành phần cơ sở hạ tầng cơ bản.
 
-2. Truy cập bảng điều khiển tiến trình hội thảo: Khám phá các phát hiện từ các lần quét tự động của ứng dụng web và tiến trình chung của bạn.
+2. Truy cập bảng điều khiển tiến trình workshop: Khám phá các phát hiện từ các lần quét tự động của ứng dụng web và tiến trình chung của bạn.
 
 3. Chạy quét thủ công: Thực hiện quét bảo mật thủ công trên ứng dụng web và xác định các thách thức còn lại.
 
-#### Kiến trúc hội thảo
+#### Kiến trúc workshop
 
-Kiến trúc của hội thảo này được hiển thị như bên dưới:
+Kiến trúc của workshop này được hiển thị như bên dưới:
 ![architecture](/images/waf-workshop-architecture.png)
 
-Đi đến tab Đầu ra của trang Ngăn xếp của trang CloudFormation.
+Đi đến tab Output của trang Stack của trang CloudFormation.
 
 ![architecture](/images/2/output.png)
 
-1. Bước đầu tiên là tìm URL trang web trong đầu ra có tên 1xWebApplicationURL. Trang web mẫu này đã được triển khai trong tài khoản AWS của bạn cho hội thảo. Hãy thử mở nó trong một tab mới. Mục tiêu của bạn là bảo mật trang web này bằng AWS WAF.
+1. Bước đầu tiên là tìm URL trang web trong output có tên 1xWebApplicationURL. Trang web mẫu này đã được triển khai trong tài khoản AWS của bạn cho workshop. Hãy thử mở nó trong một tab mới. Mục tiêu của bạn là bảo mật trang web này bằng AWS WAF.
 
-2. Bạn có thể truy cập bảng điều khiển AWS WAF bằng cách sử dụng liên kết được lưu trữ trong giá trị đầu ra 2xWAFConsole. Bạn sẽ sử dụng bảng điều khiển này trong suốt hội thảo để áp dụng các biện pháp bảo vệ cho ứng dụng web mà bạn vừa xem.
+2. Bạn có thể truy cập bảng điều khiển AWS WAF bằng cách sử dụng liên kết được lưu trữ trong giá trị output 2xWAFConsole. Bạn sẽ sử dụng bảng điều khiển này trong suốt workshop để áp dụng các biện pháp bảo vệ cho ứng dụng web mà bạn vừa xem.
 
-3. Mở liên kết trong 3xProgressDashboard trong một tab khác. Bảng điều khiển này theo dõi tiến trình của bạn trong suốt hội thảo và tự động cập nhật khi bạn hoàn thành các nhiệm vụ.
+3. Mở liên kết trong 3xProgressDashboard trong một tab khác. Bảng điều khiển này theo dõi tiến trình của bạn trong suốt workshop và tự động cập nhật khi bạn hoàn thành các nhiệm vụ.
 
-4. Bạn cũng có thể kiểm tra thủ công các biện pháp bảo vệ WAF của mình bằng liên kết được cung cấp trong đầu ra 4xTestProtections. Điều này sẽ hữu ích sau này trong hội thảo.
+4. Bạn cũng có thể kiểm tra thủ công các biện pháp bảo vệ WAF của mình bằng liên kết được cung cấp trong output 4xTestProtections. Điều này sẽ hữu ích sau này trong workshop.
 
-5. 5xTriggerRateLimiting sẽ cho phép bạn kiểm tra tính năng giới hạn tốc độ của AWS WAF sau này trong hội thảo.
+5. 5xTriggerRateLimiting sẽ cho phép bạn kiểm tra tính năng giới hạn tốc độ của AWS WAF sau này trong workshop.
 
 #### Môi trường và công cụ quét trang web
-Buổi hội thảo này cung cấp hai phương pháp để kiểm tra các quy tắc AWS WAF mà bạn sẽ triển khai: quét tự động và quét thủ công. Các trình quét này mô phỏng các vectơ tấn công web phổ biến để giúp bạn xác định và giảm thiểu các rủi ro bảo mật tiềm ẩn, chẳng hạn như:
+Workshop này cung cấp hai phương pháp để kiểm tra các quy tắc AWS WAF mà bạn sẽ triển khai: quét tự động và quét thủ công. Các trình quét này mô phỏng các vectơ tấn công web phổ biến để giúp bạn xác định và giảm thiểu các rủi ro bảo mật tiềm ẩn, chẳng hạn như:
 - SQL Injection (SQLi): Khai thác lỗ hổng để đưa mã độc vào truy vấn cơ sở dữ liệu.
 - Cross-site Scripting (XSS): Đưa mã độc vào yêu cầu.
 - Path Traversal: Truy cập các tệp hoặc thư mục trái phép trên máy chủ web.
@@ -87,12 +88,12 @@ Buổi hội thảo này cung cấp hai phương pháp để kiểm tra các quy
 - Bot Activity: Xác định lưu lượng truy cập tự động và chặn bot độc hại.
 - API Misuse: Kiểm tra việc sử dụng API không đúng cách.
 
-Các bài kiểm tra này được thiết kế để cung cấp các tình huống chung để đánh giá tiến độ hội thảo của bạn. Hãy nhớ rằng đối với các triển khai sản xuất, điều quan trọng là phải tiến hành phân tích và thử nghiệm bảo mật kỹ lưỡng ngoài phạm vi của hội thảo này.
+Các bài kiểm tra này được thiết kế để cung cấp các tình huống chung để đánh giá tiến độ workshop của bạn. Hãy nhớ rằng đối với các triển khai sản xuất, điều quan trọng là phải tiến hành phân tích và thử nghiệm bảo mật kỹ lưỡng ngoài phạm vi của workshop này.
 
-Xin chúc mừng! Bây giờ bạn đã tìm hiểu về kiến ​​trúc được sử dụng trong hội thảo này, cách tìm đầu ra ngăn xếp có liên quan và những điều cơ bản về các lần quét được thực hiện trên trang web của bạn. Tiếp tục đến phần tiếp theo để tìm hiểu thêm về quá trình quét tự động của chúng tôi và cách kích hoạt các lần quét bổ sung theo yêu cầu.
+Xin chúc mừng! Bây giờ bạn đã tìm hiểu về kiến ​​trúc được sử dụng trong workshop này, cách tìm output stack có liên quan và những điều cơ bản về các lần quét được thực hiện trên trang web của bạn. Tiếp tục đến phần tiếp theo để tìm hiểu thêm về quá trình quét tự động của ta và cách kích hoạt các lần quét bổ sung theo yêu cầu.
 
 #### Quét tự động
-Bảng điều khiển tiến trình cung cấp biểu diễn trực quan về trạng thái bảo mật của môi trường của bạn. Nó hiển thị số lượng các bài kiểm tra tự động (ví dụ: SQL injection, XSS) hiện đang vượt qua cấu hình WAF của bạn. Liên kết để truy cập bảng điều khiển này có thể được tìm thấy trong tab Đầu ra của ngăn xếp CloudFormation.
+Bảng điều khiển tiến trình cung cấp biểu diễn trực quan về trạng thái bảo mật của môi trường của bạn. Nó hiển thị số lượng các bài kiểm tra tự động (ví dụ: SQL injection, XSS) hiện đang vượt qua cấu hình WAF của bạn. Liên kết để truy cập bảng điều khiển này có thể được tìm thấy trong tab Output của stack CloudFormation.
 
 Lưu ý rằng đôi khi có thể có một chút chậm trễ trong quá trình cập nhật dữ liệu. Nếu bạn tin rằng mình đã hoàn thành một tác vụ nhưng không thấy tác vụ đó trên bảng điều khiển, vui lòng đợi một hoặc hai phút rồi kiểm tra lại.
 
@@ -103,7 +104,7 @@ Tiếp tục đến phần tiếp theo để tìm hiểu cách kích hoạt qué
 Phần này hướng dẫn bạn quét thủ công điểm cuối ứng dụng web để đánh giá hiệu quả của các quy tắc WAF.
 
 ##### Chạy Trình quét thủ công
-Truy cập trang Ngăn xếp và mở liên kết bên dưới đầu ra 4xTestProtections trong một tab mới. Thao tác này sẽ thực hiện quét đối với điểm cuối ứng dụng web của bạn. Tập lệnh quét chạy thử nghiệm và báo cáo lại thông tin sau, chẳng hạn như:
+Truy cập trang Stack và mở liên kết bên dưới output 4xTestProtections trong một tab mới. Thao tác này sẽ thực hiện quét đối với điểm cuối ứng dụng web của bạn. Tập lệnh quét chạy thử nghiệm và báo cáo lại thông tin sau, chẳng hạn như:
 
 Yêu cầu: Lệnh yêu cầu HTTP được sử dụng (ví dụ GET hoặc POST)
 Kết quả: Mã trạng thái HTTP được trả về (ví dụ 200 OK hoặc 403 Forbidden)

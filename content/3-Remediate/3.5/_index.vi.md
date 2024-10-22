@@ -77,7 +77,7 @@ Các bước xác minh cho giới hạn tỷ lệ này khác với các tác v�
 #### Đánh giá hiệu quả bảo vệ
 Sử dụng phương pháp thủ công sau để xác thực quy tắc giới hạn tốc độ:
 
-1. Đi tới tab Đầu ra ngăn xếp trong CloudFormation và sử dụng liên kết có tên là Giới hạn tốc độ kích hoạt
+1. Đi tới tab Output stack trong CloudFormation và sử dụng liên kết có tên là Giới hạn tốc độ kích hoạt
 
 2. Tập lệnh sẽ mô phỏng số lượng yêu cầu quá mức đến trang web thử nghiệm của bạn trong khi mô phỏng bot PHPCrawler
 

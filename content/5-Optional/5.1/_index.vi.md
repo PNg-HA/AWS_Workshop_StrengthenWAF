@@ -88,7 +88,7 @@ Quy trình này sẽ tạo ra một số lượng lớn các yêu cầu để k�
 
 **Kích hoạt báo động**
 
-1. Đi tới Đầu ra sự kiện và sử dụng liên kết có tên là **Kích hoạt giới hạn tỷ lệ**
+1. Đi tới Output sự kiện và sử dụng liên kết có tên là **Kích hoạt giới hạn tỷ lệ**
 2. Tập lệnh sẽ mô phỏng số lượng yêu cầu quá mức đến trang web thử nghiệm của bạn, mô phỏng lưu lượng truy cập tự động
 3. Ban đầu, các yêu cầu sẽ dẫn đến phản hồi **200 OK**
 

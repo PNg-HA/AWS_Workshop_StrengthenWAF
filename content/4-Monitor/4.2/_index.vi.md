@@ -88,7 +88,7 @@ Trong phần “Đặt mức độ ưu tiên của quy tắc”, hãy chọn Lư
 ![1.1](/images/4/2/block_s3.png)
 ##### Xác thực khối Mystery Test của bạn
 
-Xem lại bảng điều khiển hội thảo và xác minh rằng **MysteryTest** và tất cả các bài kiểm tra tự động khác đều vượt qua. Tham khảo phần Đánh giá để biết hướng dẫn. Lưu ý rằng không có quét thủ công nào được xây dựng cho bài kiểm tra này.
+Xem lại bảng điều khiển workshop và xác minh rằng **MysteryTest** và tất cả các bài kiểm tra tự động khác đều vượt qua. Tham khảo phần Đánh giá để biết hướng dẫn. Lưu ý rằng không có quét thủ công nào được xây dựng cho bài kiểm tra này.
 
 ![1.1](/images/4/2/e_s1.png)
 

@@ -18,7 +18,7 @@ Sử dụng Amazon Athena để khám phá nhật ký AWS WAF. Lưu ý rằng nh
 
 #### Quy trình
 ##### Điều tra Nhật ký AWS WAF bằng Truy vấn Amazon Athena
-> Hội thảo này được cấu hình sẵn với cơ sở dữ liệu AWS Glue, nhóm làm việc Amazon Athena và truy vấn Athena. Phần này sẽ hướng dẫn bạn cách chuyển sang nhóm làm việc Amazon Athena chính xác và truy cập các truy vấn.
+> Workshop này được cấu hình sẵn với cơ sở dữ liệu AWS Glue, nhóm làm việc Amazon Athena và truy vấn Athena. Phần này sẽ hướng dẫn bạn cách chuyển sang nhóm làm việc Amazon Athena chính xác và truy cập các truy vấn.
 
 1. Mở **Amazon Athena** trong AWS Console: https://console.aws.amazon.com/athena
 

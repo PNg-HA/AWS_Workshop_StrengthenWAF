@@ -1,5 +1,5 @@
 ---
-title : "Tùy chọn"
+title : "Bổ sung"
 date : "`r Sys.Date()`"
 weight : 5
 chapter : false

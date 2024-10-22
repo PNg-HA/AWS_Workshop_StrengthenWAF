@@ -26,25 +26,25 @@ curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/waf-workshop.yaml' --output waf-workshop.yaml
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/deploy-workshop-own-account.sh' --output deploy-workshop-own-account.sh
 ```
-/2
+![1.1](/images/2/2.png)
 3. Run the bootstrap script in the terminal
 ```bash
 sh deploy-workshop-own-account.sh
 ```
 If you meet the error *“syntax error: "(" unexpected”*, while running the script
-/3a
+![1.1](/images/2/3a.png)
 Pleaze edit the first line of the script from “#!/bin/bash” to “#!/bin/bash” and save it.
-/3b
+![1.1](/images/2/3b.png)
 and run the script with following command ```./deploy-workshop-own-account.sh```
-/3c
+![1.1](/images/2/3c.png)
 
 If you receive the notification *“Failed to create/update the stack.”* then use the command ```aws cloudformation describe-stack-events --stack-name waf-workshop``` or check the Stack page in CloudFormation console to troubleshoot:
-/3d1
-/3d2
+![1.1](/images/2/3d1.png)
+![1.1](/images/2/3d2.png)
 you will see that you have to adjust the MemorySize in the yaml file down to 3008.  
-/3d3
+![1.1](/images/2/3d3.png)
 After editting the yaml stack, run the script again. You will wait for 15 minutes then the task is deployed successfully.
-/3e
+![1.1](/images/2/3e.png)
 
 Please remember to delete all deployed resources (CloudFormation stack) after completing the workshop to avoid unnecessary charges.
 

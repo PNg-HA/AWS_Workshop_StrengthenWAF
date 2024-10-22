@@ -22,7 +22,7 @@ Chỉ các yêu cầu có định dạng JSON hợp lệ và giá trị hợp l�
 ```
 Sau đó, hãy tạo một quy tắc WAF với hai câu lệnh. Một câu lệnh phải khớp với đường dẫn URI của API (/api/listproducts.php). Một câu lệnh khác cần kiểm tra phần thân JSON của các yêu cầu API đến và xác thực rằng cú pháp JSON là hợp lệ. Nó cũng phải xác thực giá trị của "numrecords" bằng cách sử dụng tập hợp mẫu regex. Nếu đường dẫn URI khớp, nhưng cú pháp không đúng, thì quy tắc WAF sẽ trả về phản hồi tùy chỉnh bằng mã phản hồi http 400.
 
-Sau khi triển khai quy tắc WAF mới để bảo vệ chống lại việc lạm dụng API, hãy kiểm tra khả năng bảo vệ của bạn bằng cả quét thủ công và tự động. Đối với quét thủ công, hãy nhấp vào liên kết trong đầu ra sự kiện. Đối với quét tự động, hãy kiểm tra Bảng điều khiển tiến trình trong Đầu ra sự kiện.
+Sau khi triển khai quy tắc WAF mới để bảo vệ chống lại việc lạm dụng API, hãy kiểm tra khả năng bảo vệ của bạn bằng cả quét thủ công và tự động. Đối với quét thủ công, hãy nhấp vào liên kết trong output sự kiện. Đối với quét tự động, hãy kiểm tra Bảng điều khiển tiến trình trong Output sự kiện.
 
 ### Quy trình
 Quy trình bên dưới dài hơn và phức tạp hơn so với các tác vụ trước. Vui lòng đặc biệt chú ý đến các bước được liệt kê bên dưới.
@@ -107,6 +107,6 @@ Sử dụng cả phương pháp kiểm tra thủ công và tự động để đ
 1. Sử dụng chức năng quét thủ công từ phần Đánh giá. Xác thực rằng bài kiểm tra Sử dụng sai API đang vượt qua.
 
 ![1.1](/images/3/6/e_s1.png)
-2. Xem lại bảng điều khiển hội thảo và xác minh rằng quét tự động Sử dụng sai API đang vượt qua (bài kiểm tra phải được mã hóa màu xanh lá cây). Tham khảo phần Đánh giá để biết hướng dẫn.
+2. Xem lại bảng điều khiển workshop và xác minh rằng quét tự động Sử dụng sai API đang vượt qua (bài kiểm tra phải được mã hóa màu xanh lá cây). Tham khảo phần Đánh giá để biết hướng dẫn.
 
 ![1.1](/images/3/6/e_s2.png)

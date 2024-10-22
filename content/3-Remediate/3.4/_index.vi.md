@@ -56,7 +56,7 @@ Sau khi triển khai quy tắc WAF mới để chặn các yêu cầu của bot 
 
 1. Sử dụng chức năng quét thủ công từ phần **Đánh giá**. Xác thực rằng thử nghiệm Bot xấu đang vượt qua và trả về lỗi 403 Cấm đối với yêu cầu đó.
 ![1.1](/images/3/4/e_s1.png)
-2. Xem lại bảng điều khiển hội thảo và xác minh rằng quét tự động Bad Bot đang vượt qua (màu xanh lá cây). Tham khảo phần Đánh giá để biết hướng dẫn.
+2. Xem lại bảng điều khiển workshop và xác minh rằng quét tự động Bad Bot đang vượt qua (màu xanh lá cây). Tham khảo phần Đánh giá để biết hướng dẫn.
 ![1.1](/images/3/4/e_s2.png)
 
 Xin chúc mừng! Bạn đã bảo vệ thành công trang web của mình khỏi bot zyborg.

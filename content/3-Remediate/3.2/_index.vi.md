@@ -1,91 +1,54 @@
 ---
-title : "Đưa ABAC vào hoạt động"
+title : "Bảo vệ Đường dẫn bằng Quy tắc Tùy chỉnh"
 date : "`r Sys.Date()`"
 weight : 2
 chapter : false
-pre : " <b> Nhiệm vụ-1.2: </b> "
+pre : " <b> 3.2 </b> "
 ---
-Attribute-based access control (ABAC) là một chiến lược ủy quyền xác định quyền dựa trên các thuộc tính. Trong AWS, các thuộc tính này được gọi là tag. Bạn có thể gắn các tag vào IAM resource, bao gồm IAM entity (user hoặc role) và vào AWS resource. ạn có thể tạo một ABAC duy nhất hoặc một tập hợp nhỏ các policy cho các IAM principal. Các ABAC policy này có thể được thiết kế để cho phép các hoạt động khi tag của principal khớp với tag của tài nguyên. ABAC hữu ích trong các môi trường đang phát triển nhanh chóng và giúp ích cho các tình huống mà việc quản lý policy trở nên phức tạp.
 
-Trong phần này, bạn sẽ xem xét các policy được gắn với role của hàm Lambda của ứng dụng mẫu và quan sát hành vi sau khi thực hiện thay đổi các tag.
+### Kịch bản
+Trang web có thư mục **/includes** với các tệp chỉ được các quy trình trên máy chủ truy cập (ví dụ: tiêu đề và chân trang để hiển thị phía máy chủ). Tuy nhiên, tất cả các tệp trong thư mục đó đều có thể được truy cập trực tiếp từ Internet, điều này có thể dẫn đến tiết lộ thông tin ngoài ý muốn. Nhiệm vụ của bạn là chặn quyền truy cập trực tiếp vào các tệp trong thư mục /includes.
 
-#### Steps:
-1. Điều hướng đến [bảng điều khiển dịch vụ Lambda](https://console.aws.amazon.com/lambda).
+### Hướng dẫn
+Tạo quy tắc AWS WAF tùy chỉnh chặn tất cả các yêu cầu bắt đầu bằng /includes. Để ngăn các yêu cầu được mã hóa bỏ qua quy tắc này, hãy thêm chuyển đổi giải mã url trước khi kiểm tra yêu cầu. Sau khi thêm quy tắc tùy chỉnh vào Web ACL, hãy kiểm tra các biện pháp bảo vệ của bạn bằng cả quét thủ công và tự động.
 
-![1.1](/images/m1/1.1/s1.png)
+### Quy trình
+#### Thêm quy tắc tùy chỉnh vào Web ACL:
+1. Điều hướng đến tab Quy tắc của Web ACL
 
-2.  Chọn “Functions” từ bảng điều khiển bên trái. Nhấp vào tên hàm “LambdaRDSTest” (Hàm đã thao tác ở phần 1.1).
+2. Nhấp vào Thêm quy tắc và chọn Thêm quy tắc và nhóm quy tắc của riêng tôi
 
+![1.1](/images/3/2/2.png)
+##### Chi tiết quy tắc
+1. Loại quy tắc: Trình tạo quy tắc
+2. Tên: path-block
+3. Loại: Quy tắc thông thường
+![1.1](/images/3/2/r1.png)
+##### Câu lệnh
 
+1. Nếu yêu cầu: Phù hợp với câu lệnh
+2. Kiểm tra: Đường dẫn URI
+3. Loại khớp: Bắt đầu bằng chuỗi
+4. Chuỗi cần khớp: /includes
+5. Chuyển đổi văn bản: Giải mã URL quy tắc thông thường
+![1.1](/images/3/2/s1.png)
+##### Sau đó
 
+1. Hành động: Chặn
+2. Nhấp vào Thêm quy tắc ở cuối trang thông thường rule
+![1.1](/images/3/2/t1.png)
+##### Mức độ ưu tiên của quy tắc
 
-3. Nhấp vào Tab “Configuration”.
+1. Trên trang Đặt mức độ ưu tiên của quy tắc, hãy nhấp vào Lưu
+![1.1](/images/3/2/p1_s1.png)
+2. Trên tab Quy tắc, hãy xác minh rằng quy tắc tùy chỉnh mới hiện được liệt kê là quy tắc thông thường
+![1.1](/images/3/2/p1_s2.png)
+3. Bạn đã hoàn tất việc thêm quy tắc tùy chỉnh để chặn mọi yêu cầu đến các tệp trong thư mục /includes. Bây giờ bạn đã sẵn sàng để kiểm tra khả năng bảo vệ.
 
+#### Đánh giá hiệu quả bảo vệ
+Làm theo hướng dẫn để kiểm tra thủ công các biện pháp bảo vệ từ phần Đánh giá để xác thực rằng bài kiểm tra Bao gồm Mô-đun đang vượt qua và trả về lỗi 403 Bị cấm đối với yêu cầu đó.
+![1.1](/images/3/2/e1.png)
+Xem lại bảng thông tin tiến trình và xác minh rằng các lần quét tự động cho các bài kiểm tra được liệt kê ở trên đang vượt qua. Yêu cầu đến URL có đường dẫn /includes đã bị chặn
 
-
-
-4. Chọn “Permissions” từ bảng điều khiển bên trái.
-
-
-
-5. Trong phần “Execution Role”, bạn sẽ thấy tên Role “LambdaRDSTestRole” được gắn với hàm Lambda.
-
-![1.2](/images/m1/1.2/s5.png)
-
-6. Nhấp vào “LambdaRDSTestRole”. Thao tác này sẽ đưa bạn đến phần Details của Role trong IAM Management Console.
-
-
-
-7. Trong Tab Permissions, bạn sẽ thấy 4 chính sách được gắn với Role này.
-
-![1.2](/images/m1/1.2/s7.png)
-Xem thử Trust relationships
-![1.2](/images/m1/1.2/s7b.png)
-8. Nhấp vào biểu tượng "+" bên cạnh “AllowSM” policy.
-
-*Q: Bạn rút ra điều gì từ policy này?*
-
-
-A: kiểm tra xem thẻ aws:ResourceTag/Event và aws:ResourceTag/Workshop có khớp với các giá trị tương ứng trong thẻ aws:PrincipalTag/Event và aws:PrincipalTag/Workshop hay không.
-<!-- 9. Bây giờ hãy xem xét các Tag cho Role này. Điều hướng đến tab “Tags”.
-
-*Bạn nhận thấy các cặp Key-Value nào của Tag?* -->
-
-
-
-10. Điều hướng đến [bảng điều khiển dịch vụ Secrets Manager](https://console.aws.amazon.com/secretsmanager).
-
-
-
-11. Nhấp vào secret được tạo bởi CloudFormation template. Tên secret sẽ là “DemoWorkshopSecret“.
-
-
-12. Dưới phần “Tags” cho secret, hãy xem xét Tag Values cho các Tag “Event” và “Workshop” và so sánh Tag Key và Tag Value cho các ”LambdaRDSTestRole“ Tag mà bạn đã xem xét ở bước #10 ở trên.
-
-*Bạn quan sát thấy gì?*
-![1.2](/images/m1/1.2/s12.png)
-
-13. Bây giờ nhấp vào “Edit tags” để chỉnh sửa các tag cho “DemoWorkshopSecret” secret. Cập nhật giá trị cho tag “Workshop” thành một giá trị khác (ví dụ: AWSKMSWorkshop).
-
-![1.2](/images/m1/1.2/s13.png)
-
-14. Nhấp vào “Save”. Bạn sẽ thấy một thông báo  màu xanh ở trên cùng “Your tags are modified."
-
-![1.2](/images/m1/1.2/s14.png)
-
-15. Nếu bạn truy cập lại API URL trong trình duyệt web của mình, bạn sẽ thấy một thông báo “Database not connected” làm đầu ra.
-![1.2](/images/m1/1.2/s15.png)
-*Q: Tại sao kết nối lại thất bại?*
-
-A: fail vì khác value trong tag Workshop (phải là AWSSecretsManagerWorkshop)  
-
-16. Thử nghiệm bằng cách cập nhật các Tag của secret thành một kết hợp các giá trị này và quan sát đầu ra từ API URL của ứng dụng.
-
-![1.2](/images/m1/1.2/s16.png)
-Sửa value tag Workshop thành AmazonGuardDutyWorkshop cũng không kết nối được
-
-![1.2](/images/m1/1.2/s16b.png)
-Sửa value Event thành conference cũng không kết nối database
-
-![1.2](/images/m1/1.2/s16d.png)
-nếu để tag Workshop và Event có value như trên thì truy vấn database được
+![1.1](/images/3/2/e2.png)
+Xin chúc mừng! Bạn đã bảo vệ thành công các tệp trong thư mục **/includes**.
