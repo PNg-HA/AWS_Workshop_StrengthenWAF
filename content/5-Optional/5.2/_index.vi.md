@@ -8,7 +8,7 @@ pre : " <b> 5.2. </b> "
 
 #### Kịch bản
 
-Nếu bạn đã bật quy tắc phát hiện Bot AWS WAF trong bài tập trước đó, bảng điều khiển Bot Control của bạn sẽ chứa dữ liệu thú vị để phân tích. Xem lại bảng điều khiển để phân tích hoạt động của bot trên trang web của bạn.
+Nếu bạn đã bật rule phát hiện Bot AWS WAF trong bài tập trước đó, bảng điều khiển Bot Control của bạn sẽ chứa dữ liệu thú vị để phân tích. Xem lại bảng điều khiển để phân tích hoạt động của bot trên trang web của bạn.
 
 #### Hướng dẫn
 
@@ -32,7 +32,7 @@ Trong WebACL của bạn, hãy điều hướng đến tab Bot Control và xem l
 3. Bạn sẽ thấy các biểu đồ tương tự như ảnh chụp màn hình
 ![bot_dashboard](/images/5/2/bot-dashboard_2.png)
 
-##### Thu thập số liệu
+##### Thu thập metric
 
 1. Kiểm tra dữ liệu trong **Tất cả các yêu cầu, theo phần trăm**
 

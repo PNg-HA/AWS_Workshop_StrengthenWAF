@@ -1,5 +1,5 @@
 ---
-title : "Tạo báo động CloudWatch cho số liệu AWS WAF"
+title : "Tạo báo động CloudWatch cho metric AWS WAF"
 date : "`r Sys.Date()`"
 weight : 1
 chapter : false
@@ -8,11 +8,11 @@ pre : " <b> 5.1. </b> "
 
 #### Kịch bản
 
-Tổ chức của bạn lo ngại về việc đối tác sử dụng trình thu thập dữ liệu web và khả năng của trình thu thập dữ liệu trong phạm vi các quy tắc giới hạn tốc độ. Nhiệm vụ của bạn là thiết lập hệ thống cảnh báo sẽ thông báo cho bạn nếu việc sử dụng trình thu thập dữ liệu PHP của họ vượt quá ngưỡng đã thỏa thuận.
+Tổ chức của bạn lo ngại về việc đối tác sử dụng trình thu thập dữ liệu web và khả năng của trình thu thập dữ liệu trong phạm vi các rule giới hạn tốc độ. Nhiệm vụ của bạn là thiết lập hệ thống cảnh báo sẽ thông báo cho bạn nếu việc sử dụng trình thu thập dữ liệu PHP của họ vượt quá ngưỡng đã thỏa thuận.
 
 #### Hướng dẫn
 
-Đầu tiên, hãy tạo chủ đề SNS không có người đăng ký nào (không cần thiết lập thông báo qua email). Tạo báo động CloudWatch theo dõi quy tắc phpcrawl-rate-limiter và được kích hoạt nếu bất kỳ yêu cầu nào bị chặn trong bất kỳ khoảng thời gian 1 phút nào.
+Đầu tiên, hãy tạo chủ đề SNS không có người đăng ký nào (không cần thiết lập thông báo qua email). Tạo báo động CloudWatch theo dõi rule phpcrawl-rate-limiter và được kích hoạt nếu bất kỳ yêu cầu nào bị chặn trong bất kỳ khoảng thời gian 1 phút nào.
 
 Xác minh cấu hình của bạn bằng cách kích hoạt giới hạn tốc độ. Yêu cầu quá mức của tập lệnh sẽ kích hoạt báo động (thay đổi trạng thái báo động).
 
@@ -45,16 +45,16 @@ Xác minh cấu hình của bạn bằng cách kích hoạt giới hạn tốc �
 4. Trong "Tạo báo thức", nhấp vào **Chọn metric**
 
 ![1.1](/images/5/1/alarm_s4.png)
-5. Điều hướng đến **WAFV2, Khu vực, Quy tắc, WebACL**
+5. Điều hướng đến **WAFV2, Khu vực, Rule, WebACL**
 
 ![1.1](/images/5/1/alarm_s5a.png)
 ![1.1](/images/5/1/alarm_s5b.png)
 
-6. Chọn số liệu này:
-- Quy tắc: **rate-limiter**
-- Tên số liệu: **BlockedRequests**
+6. Chọn metric này:
+- Rule: **rate-limiter**
+- Tên metric: **BlockedRequests**
 
-1. Nhấp vào **Chọn số liệu**
+1. Nhấp vào **Chọn metric**
 
 ![1.1](/images/5/1/select_metric.png)
 
@@ -84,7 +84,7 @@ Xác minh cấu hình của bạn bằng cách kích hoạt giới hạn tốc �
 ![1.1](/images/5/1/accept_s3.png)
 ##### Xác minh cấu hình báo động
 
-Quy trình này sẽ tạo ra một số lượng lớn các yêu cầu để kích hoạt quy tắc WAF giới hạn tỷ lệ, sau đó sẽ công bố số liệu lên CloudWatch. Việc tăng số liệu CloudWatch sẽ kích hoạt báo động.
+Quy trình này sẽ tạo ra một số lượng lớn các yêu cầu để kích hoạt rule WAF giới hạn tỷ lệ, sau đó sẽ công bố metric lên CloudWatch. Việc tăng metric CloudWatch sẽ kích hoạt báo động.
 
 **Kích hoạt báo động**
 
@@ -94,7 +94,7 @@ Quy trình này sẽ tạo ra một số lượng lớn các yêu cầu để k�
 
 ![1.1](/images/5/1/final_s3.png)
 
-4. Khi quy tắc giới hạn tỷ lệ được kích hoạt, các yêu cầu sẽ bị chặn và dẫn đến phản hồi **429 Quá nhiều yêu cầu**
+4. Khi rule giới hạn tỷ lệ được kích hoạt, các yêu cầu sẽ bị chặn và dẫn đến phản hồi **429 Quá nhiều yêu cầu**
 
 ![1.1](/images/5/1/final_s4.png)
 **Xác minh trong CloudWatch**
@@ -109,4 +109,4 @@ Quy trình này sẽ tạo ra một số lượng lớn các yêu cầu để k�
 
 ![1.1](/images/5/1/final.png)
 
-> **Xin chúc mừng!** Báo động giám sát quy tắc AWS WAF của bạn đã được tạo thành công. Điều này đảm bảo bạn sẽ được thông báo bất cứ khi nào quy tắc được kích hoạt.
+> **Xin chúc mừng!** Báo động giám sát rule AWS WAF của bạn đã được tạo thành công. Điều này đảm bảo bạn sẽ được thông báo bất cứ khi nào rule được kích hoạt.

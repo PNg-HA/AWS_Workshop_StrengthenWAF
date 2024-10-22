@@ -10,20 +10,20 @@ pre : " <b> 3.4 </b> "
 Trong hoạt động trước, bạn đã bật AWS WAF Bot Control để thu thập dữ liệu về hoạt động của bot. Sau khi phân tích hoạt động của bot, bạn đã xác định rằng bot "zyborg" đang gây quá tải cho máy chủ web và không được phép có bot trong ứng dụng của bạn. Bạn cần chặn tất cả các yêu cầu từ bot zyborg.
 
 ### Hướng dẫn
-Nhóm quy tắc AWS WAF Bot Control thêm nhãn này vào các yêu cầu từ bot zyborg: **awswaf:managed:aws:bot-control:bot:name:zyborg**. Tạo quy tắc WAF với một câu lệnh chặn tất cả các yêu cầu có nhãn này.
+Nhóm rule AWS WAF Bot Control thêm nhãn này vào các yêu cầu từ bot zyborg: **awswaf:managed:aws:bot-control:bot:name:zyborg**. Tạo rule WAF với một câu lệnh chặn tất cả các yêu cầu có nhãn này.
 
-Sau khi triển khai quy tắc WAF mới để chặn các yêu cầu của bot zyborg, hãy kiểm tra quy tắc mới của bạn bằng cả quét thủ công và tự động.
+Sau khi triển khai rule WAF mới để chặn các yêu cầu của bot zyborg, hãy kiểm tra rule mới của bạn bằng cả quét thủ công và tự động.
 
 ### Thủ tục
-#### Thêm quy tắc tùy chỉnh vào Web ACL
-Điều hướng đến Web ACL và danh sách các quy tắc của nó. Nhấp vào "Thêm quy tắc", chọn "Thêm quy tắc và nhóm quy tắc của riêng tôi".
+#### Thêm rule tùy chỉnh vào Web ACL
+Điều hướng đến Web ACL và danh sách các rule của nó. Nhấp vào "Thêm rule", chọn "Thêm rule và nhóm rule của riêng tôi".
 
 ![1.1](/images/3/4/navigate.png)
-##### Chi tiết quy tắc
+##### Chi tiết rule
 
-1. Loại quy tắc: **Trình tạo quy tắc**
+1. Loại rule: **Trình tạo rule**
 2. Tên: **zyborg-block**
-3. Loại: **Quy tắc thông thường**
+3. Loại: **Rule thông thường**
 4. Nếu yêu cầu: **phù hợp với câu lệnh**
 
 ![1.1](/images/3/4/rule_detail.png)
@@ -38,19 +38,19 @@ Sau khi triển khai quy tắc WAF mới để chặn các yêu cầu của bot 
 
 1. Hành động: **Chặn**
 
-2. Nhấp vào **Thêm quy tắc** ở cuối trang
+2. Nhấp vào **Thêm rule** ở cuối trang
 
 ![1.1](/images/3/4/then_1.png)
-##### Mức độ ưu tiên của quy tắc
+##### Mức độ ưu tiên của rule
 
-1. Trên trang **Đặt mức độ ưu tiên của quy tắc**, hãy đảm bảo rằng quy tắc zyborg-block mới xuất hiện **DƯỚI** quy tắc do AWS WAF Bot quản lý ("AWS-AWSManagedRulesBotControlRuleSet") và **Lưu**
+1. Trên trang **Đặt mức độ ưu tiên của rule**, hãy đảm bảo rằng rule zyborg-block mới xuất hiện **DƯỚI** rule do AWS WAF Bot quản lý ("AWS-AWSManagedRulesBotControlRuleSet") và **Lưu**
 
 ![1.1](/images/3/4/prio_1.png)
 
-2. Trên tab **Quy tắc**, hãy xác minh rằng quy tắc tùy chỉnh mới hiện đã được liệt kê
+2. Trên tab **Rule**, hãy xác minh rằng rule tùy chỉnh mới hiện đã được liệt kê
 
 ![1.1](/images/3/4/prio_2.png)
-3. Bạn đã hoàn tất việc thêm quy tắc tùy chỉnh để chặn bot zyborg. Bây giờ bạn đã sẵn sàng để kiểm tra khả năng bảo vệ.
+3. Bạn đã hoàn tất việc thêm rule tùy chỉnh để chặn bot zyborg. Bây giờ bạn đã sẵn sàng để kiểm tra khả năng bảo vệ.
 
 #### Đánh giá hiệu quả bảo vệ
 

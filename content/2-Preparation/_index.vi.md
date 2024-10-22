@@ -80,7 +80,7 @@ Kiến trúc của workshop này được hiển thị như bên dưới:
 5. 5xTriggerRateLimiting sẽ cho phép bạn kiểm tra tính năng giới hạn tốc độ của AWS WAF sau này trong workshop.
 
 #### Môi trường và công cụ quét trang web
-Workshop này cung cấp hai phương pháp để kiểm tra các quy tắc AWS WAF mà bạn sẽ triển khai: quét tự động và quét thủ công. Các trình quét này mô phỏng các vectơ tấn công web phổ biến để giúp bạn xác định và giảm thiểu các rủi ro bảo mật tiềm ẩn, chẳng hạn như:
+Workshop này cung cấp hai phương pháp để kiểm tra các rule AWS WAF mà bạn sẽ triển khai: quét tự động và quét thủ công. Các trình quét này mô phỏng các vectơ tấn công web phổ biến để giúp bạn xác định và giảm thiểu các rủi ro bảo mật tiềm ẩn, chẳng hạn như:
 - SQL Injection (SQLi): Khai thác lỗ hổng để đưa mã độc vào truy vấn cơ sở dữ liệu.
 - Cross-site Scripting (XSS): Đưa mã độc vào yêu cầu.
 - Path Traversal: Truy cập các tệp hoặc thư mục trái phép trên máy chủ web.
@@ -101,7 +101,7 @@ Lưu ý rằng đôi khi có thể có một chút chậm trễ trong quá trìn
 Tiếp tục đến phần tiếp theo để tìm hiểu cách kích hoạt quét thủ công các biện pháp bảo vệ ứng dụng web.
 
 #### Quét thủ công
-Phần này hướng dẫn bạn quét thủ công điểm cuối ứng dụng web để đánh giá hiệu quả của các quy tắc WAF.
+Phần này hướng dẫn bạn quét thủ công điểm cuối ứng dụng web để đánh giá hiệu quả của các rule WAF.
 
 ##### Chạy Trình quét thủ công
 Truy cập trang Stack và mở liên kết bên dưới output 4xTestProtections trong một tab mới. Thao tác này sẽ thực hiện quét đối với điểm cuối ứng dụng web của bạn. Tập lệnh quét chạy thử nghiệm và báo cáo lại thông tin sau, chẳng hạn như:
@@ -109,23 +109,23 @@ Truy cập trang Stack và mở liên kết bên dưới output 4xTestProtection
 Yêu cầu: Lệnh yêu cầu HTTP được sử dụng (ví dụ GET hoặc POST)
 Kết quả: Mã trạng thái HTTP được trả về (ví dụ 200 OK hoặc 403 Forbidden)
 
-Kết quả được mã hóa màu để giúp bạn nhanh chóng đánh giá hiệu suất của các quy tắc WAF so với hành vi dự định của chúng. Lý tưởng nhất là tất cả các thử nghiệm sẽ trả về mã trạng thái màu xanh lá cây.
+Kết quả được mã hóa màu để giúp bạn nhanh chóng đánh giá hiệu suất của các rule WAF so với hành vi dự định của chúng. Lý tưởng nhất là tất cả các thử nghiệm sẽ trả về mã trạng thái màu xanh lá cây.
 
-Yêu cầu cơ sở đại diện cho lưu lượng hợp lệ không nên bị các quy tắc WAF của bạn chặn. Chúng sẽ luôn trả về mã trạng thái 200 OK để đảm bảo bạn không vô tình chặn người dùng hợp lệ truy cập vào ứng dụng của mình.
+Yêu cầu cơ sở đại diện cho lưu lượng hợp lệ không nên bị các rule WAF của bạn chặn. Chúng sẽ luôn trả về mã trạng thái 200 OK để đảm bảo bạn không vô tình chặn người dùng hợp lệ truy cập vào ứng dụng của mình.
 
 ##### Xem lại kết quả quét
 Sau khi chạy tập lệnh quét, hãy phân tích kết quả để trả lời những câu hỏi sau:
 
-Có bất kỳ thử nghiệm cơ sở nào bị chặn không? Điều này cho biết các quy tắc WAF của bạn có thể quá hạn chế và cần điều chỉnh.
+Có bất kỳ thử nghiệm cơ sở nào bị chặn không? Điều này cho biết các rule WAF của bạn có thể quá hạn chế và cần điều chỉnh.
 
-Các yêu cầu độc hại được mô phỏng có bị chặn thành công không? Điều này cho thấy các quy tắc WAF của bạn đang bảo vệ ứng dụng của bạn một cách hiệu quả.
+Các yêu cầu độc hại được mô phỏng có bị chặn thành công không? Điều này cho thấy các rule WAF của bạn đang bảo vệ ứng dụng của bạn một cách hiệu quả.
 
 ##### Tự mô phỏng các yêu cầu
 Tập lệnh quét tận dụng chức năng AWS Lambda để gửi các yêu cầu thử nghiệm. Bạn có thể sao chép quy trình này bằng cách gửi các yêu cầu tương tự từ thiết bị của riêng bạn bằng các công cụ như curl trên dòng lệnh.
 
 Đối với các bài kiểm tra rất cơ bản, bạn thậm chí có thể gửi các yêu cầu GET đơn giản trực tiếp từ trình duyệt của mình, có khả năng có các tham số chuỗi truy vấn và so sánh các phản hồi bạn nhận được.
 
-Kết quả quét có thể sẽ tiết lộ các lỗ hổng bảo mật cần được giải quyết. Bước tiếp theo, khắc phục, bao gồm việc định cấu hình AWS WAF Web ACL để chặn các yêu cầu độc hại này. Khi AWS WAF chặn thành công một yêu cầu dựa trên các quy tắc của bạn, nó sẽ trả về mã trạng thái 403 Forbidden hoặc mã lỗi tùy chỉnh mà bạn đã xác định.
+Kết quả quét có thể sẽ tiết lộ các lỗ hổng bảo mật cần được giải quyết. Bước tiếp theo, khắc phục, bao gồm việc định cấu hình AWS WAF Web ACL để chặn các yêu cầu độc hại này. Khi AWS WAF chặn thành công một yêu cầu dựa trên các rule của bạn, nó sẽ trả về mã trạng thái 403 Forbidden hoặc mã lỗi tùy chỉnh mà bạn đã xác định.
 
 ![manual_scanner](/images/2/manual_scanner.png)
 Xin chúc mừng! Bây giờ bạn đã quen với việc xem lại tiến trình của mình và kiểm tra các biện pháp bảo vệ được áp dụng, bạn đã chuẩn bị tốt để chuyển sang phần [Remediate](3-Remediate/). Ở đó, bạn sẽ khám phá các chiến lược để triển khai các biện pháp bảo vệ trang web cần thiết với AWS WAF.

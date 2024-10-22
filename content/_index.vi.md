@@ -11,7 +11,7 @@ Workshop này cung cấp cho bạn kiến ​​thức và kỹ năng để tăn
 
 - Giảm thiểu các mối đe dọa phổ biến: Hiểu và triển khai các biện pháp kiểm soát để chống lại các cuộc tấn công web thường xuyên như SQL injection và cross-site scripting.
 - Tận dụng các kỹ thuật nâng cao: Khám phá các khả năng nâng cao, bao gồm Bot Control, phản hồi HTTP tùy chỉnh và kiểm tra JSON.
-- Giám sát lưu lượng truy cập web: Phân tích lưu lượng truy cập bằng cách học cách sử dụng nhật ký AWS WAF, xây dựng bảng thông tin gần như thời gian thực và thu thập thông tin chi tiết để tối ưu hóa hơn nữa tình trạng bảo mật của bạn.
+- Giám sát lưu lượng truy cập web: Phân tích lưu lượng truy cập bằng cách học cách sử dụng logAWS WAF, xây dựng bảng thông tin gần như thời gian thực và thu thập thông tin chi tiết để tối ưu hóa hơn nữa tình trạng bảo mật của bạn.
 
 ### Về workshop
 Đây là workshop 300 cấp độ dành cho các chuyên gia CNTT đã quen thuộc với các dịch vụ cốt lõi của AWS và đang tìm cách hiểu rõ hơn về AWS WAF và các khả năng của nó.

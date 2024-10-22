@@ -10,10 +10,10 @@ Tổ chức của bạn muốn sử dụng AWS WAF như một phần của phư�
 
 Trong mô-đun này, bạn sẽ triển khai các tác vụ sau:
 
-- Áp dụng Bảo vệ nền tảng với Quy tắc được quản lý của AWS
-- Bảo vệ Đường dẫn bằng Quy tắc tùy chỉnh
+- Áp dụng Bảo vệ nền tảng với Rule được quản lý của AWS
+- Bảo vệ Đường dẫn bằng Rule tùy chỉnh
 - Có được khả năng hiển thị vào Lưu lượng truy cập của Bot
-- Chặn Bot xấu bằng Quy tắc tùy chỉnh
+- Chặn Bot xấu bằng Rule tùy chỉnh
 - Giới hạn lưu lượng truy cập của Bot và Gửi phản hồi tùy chỉnh
 - Bảo vệ API bằng Phân tích nội dung yêu cầu
 

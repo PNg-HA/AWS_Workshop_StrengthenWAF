@@ -12,9 +12,9 @@ Một số yêu cầu từ máy quét tự động bao gồm tiêu đề `myster
 
 #### Hướng dẫn
 
-Sử dụng Amazon Athena để khám phá nhật ký AWS WAF và tìm giá trị của tiêu đề `mystery-hint` trong các yêu cầu. Giá trị được mã hóa base64, vì vậy bạn cần giải mã văn bản để tìm giá trị. Xây dựng quy tắc WAF tùy chỉnh để chặn giá trị tiêu đề mystery-hint bằng câu lệnh thích hợp (xem xét chuyển đổi văn bản có thể cần thiết).
+Sử dụng Amazon Athena để khám phá logAWS WAF và tìm giá trị của tiêu đề `mystery-hint` trong các yêu cầu. Giá trị được mã hóa base64, vì vậy bạn cần giải mã văn bản để tìm giá trị. Xây dựng rule WAF tùy chỉnh để chặn giá trị tiêu đề mystery-hint bằng câu lệnh thích hợp (xem xét chuyển đổi văn bản có thể cần thiết).
 
-Xác thực quy tắc của bạn bằng cách xem lại bảng điều khiển kiểm tra tự động mà quá trình quét tự động **MysteryTest** đang vượt qua. Nếu bạn đã hoàn thành các tác vụ khắc phục, thì việc hoàn thành bài tập này sẽ chuyển ô cuối cùng trên tab **Tiến trình của tôi** của Bảng điều khiển WAF sang **màu xanh lá cây!**
+Xác thực rule của bạn bằng cách xem lại bảng điều khiển kiểm tra tự động mà quá trình quét tự động **MysteryTest** đang vượt qua. Nếu bạn đã hoàn thành các tác vụ khắc phục, thì việc hoàn thành bài tập này sẽ chuyển ô cuối cùng trên tab **Tiến trình của tôi** của Bảng điều khiển WAF sang **màu xanh lá cây!**
 
 #### Quy trình
 ##### Chuyển sang Nhóm làm việc Amazon Athena
@@ -31,7 +31,7 @@ Bạn có thể bỏ qua phần này nếu bạn đã đăng nhập vào bảng 
 
 ##### Tìm giá trị của Mystery Hint
 
-Sử dụng truy vấn Amazon Athena để phân tích cú pháp nhật ký AWS WAF và tìm giá trị của tiêu đề `mystery-hint`.
+Sử dụng truy vấn Amazon Athena để phân tích cú pháp logAWS WAF và tìm giá trị của tiêu đề `mystery-hint`.
 
 1. Mở tab **Saved queries** và nhấp vào truy vấn **MysteryHintHeader**.
 
@@ -69,21 +69,21 @@ WHERE LOWER(header.name)='mystery-hint'
 3. Chạy truy vấn để lấy giá trị tiêu đề
 
 ![1.1](/images/4/2/decode_s3.png)
-4. Lưu giá trị đã giải mã để sử dụng sau - bạn sẽ tận dụng giá trị đó trong phần tiếp theo để tạo quy tắc chặn
+4. Lưu giá trị đã giải mã để sử dụng sau - bạn sẽ tận dụng giá trị đó trong phần tiếp theo để tạo rule chặn
 
 ##### Chặn Bài kiểm tra bí ẩn
 
-Sử dụng những gì bạn đã học trong các bài tập trước, hãy xây dựng quy tắc WAF tùy chỉnh để chặn giá trị tiêu đề **MysteryHint** bằng câu lệnh thích hợp. Hãy nghĩ về:
+Sử dụng những gì bạn đã học trong các bài tập trước, hãy xây dựng rule WAF tùy chỉnh để chặn giá trị tiêu đề **MysteryHint** bằng câu lệnh thích hợp. Hãy nghĩ về:
 
 - Bạn nên kiểm tra phần nào của yêu cầu?
 - Bạn nên chỉ định điều kiện **Kiểu khớp** nào?
 - Bạn nên sử dụng **Chuyển đổi văn bản** nào?
-- Hãy thử tự tạo quy tắc WAF tùy chỉnh
+- Hãy thử tự tạo rule WAF tùy chỉnh
 - nếu bạn cần trợ giúp, hãy mở rộng phần bên dưới để biết gợi ý
 
 **Chặn Bài kiểm tra bí ẩn**
 
-Trong phần “Đặt mức độ ưu tiên của quy tắc”, hãy chọn Lưu.
+Trong phần “Đặt mức độ ưu tiên của rule”, hãy chọn Lưu.
 
 ![1.1](/images/4/2/block_s3.png)
 ##### Xác thực khối Mystery Test của bạn
@@ -93,4 +93,4 @@ Xem lại bảng điều khiển workshop và xác minh rằng **MysteryTest** v
 ![1.1](/images/4/2/e_s1.png)
 
 ![1.1](/images/4/2/e_s2.png)
-> **Xin chúc mừng!** Bạn đã khám phá thành công dữ liệu nhật ký AWS WAF và chặn Mystery Test.
+> **Xin chúc mừng!** Bạn đã khám phá thành công dữ liệu logAWS WAF và chặn Mystery Test.

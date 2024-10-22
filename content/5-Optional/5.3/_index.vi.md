@@ -12,21 +12,21 @@ Trang web mẫu được triển khai như một phần của workshop này có 
 
 #### Hướng dẫn
 
-Sử dụng [AWS WAF CAPTCHA](https://docs.aws.amazon.com/waf/latest/developerguide/waf-captcha-and-challenge-best-practices.html) để đảm bảo rằng chỉ có con người mới có thể truy cập biểu mẫu được lưu trữ tại /quiz. Xác thực thủ công rằng quy tắc đang hoạt động. Giải câu đố CAPTCHA được trình bày và giải Bài kiểm tra AWS WAF.
+Sử dụng [AWS WAF CAPTCHA](https://docs.aws.amazon.com/waf/latest/developerguide/waf-captcha-and-challenge-best-practices.html) để đảm bảo rằng chỉ có con người mới có thể truy cập biểu mẫu được lưu trữ tại /quiz. Xác thực thủ công rằng rule đang hoạt động. Giải câu đố CAPTCHA được trình bày và giải Bài kiểm tra AWS WAF.
 
 #### Quy trình
-##### Thêm quy tắc tùy chỉnh vào Web ACL:
+##### Thêm rule tùy chỉnh vào Web ACL:
 
-1. Điều hướng đến tab **Quy tắc** của Web ACL
+1. Điều hướng đến tab **Rule** của Web ACL
 
-2. Nhấp vào **Thêm quy tắc** và chọn **Thêm quy tắc và nhóm quy tắc của riêng tôi**
+2. Nhấp vào **Thêm rule** và chọn **Thêm rule và nhóm rule của riêng tôi**
 
 ![1.1](/images/5/3/s1.png)
-**Chi tiết quy tắc**
+**Chi tiết rule**
 
-1. Loại quy tắc: **Trình tạo quy tắc**
+1. Loại rule: **Trình tạo rule**
 2. Tên: **quiz-captcha**
-3. Loại: **Quy tắc thông thường**
+3. Loại: **Rule thông thường**
 
 ![1.1](/images/5/3/rule_detail.png)
 
@@ -43,20 +43,20 @@ Sử dụng [AWS WAF CAPTCHA](https://docs.aws.amazon.com/waf/latest/developergu
 **Sau đó**
 
 1. Hành động: **CAPTCHA**
-2. Kiểm tra **Đặt thời gian miễn trừ tùy chỉnh cho quy tắc này**
+2. Kiểm tra **Đặt thời gian miễn trừ tùy chỉnh cho rule này**
 3. Thời gian miễn trừ: **900** giây
-4. Nhấp vào **Thêm quy tắc** ở cuối trang
+4. Nhấp vào **Thêm rule** ở cuối trang
 
 ![1.1](/images/5/3/then.png)
 
-**Mức độ ưu tiên của quy tắc**
+**Mức độ ưu tiên của rule**
 
-1. Trên trang **Đặt mức độ ưu tiên của quy tắc**, nhấp vào **Lưu**
-2. Trên tab **Quy tắc**, hãy xác minh rằng quy tắc tùy chỉnh mới hiện đã được liệt kê (có thể nằm trên trang thứ 2 của các quy tắc)
+1. Trên trang **Đặt mức độ ưu tiên của rule**, nhấp vào **Lưu**
+2. Trên tab **Rule**, hãy xác minh rằng rule tùy chỉnh mới hiện đã được liệt kê (có thể nằm trên trang thứ 2 của các rule)
 
 ![1.1](/images/5/3/prio_s2.png)
 
-3. Bạn đã hoàn tất việc thêm quy tắc tùy chỉnh bằng CAPTCHA chỉ cho phép con người truy cập. Bây giờ bạn đã sẵn sàng để kiểm tra khả năng bảo vệ.
+3. Bạn đã hoàn tất việc thêm rule tùy chỉnh bằng CAPTCHA chỉ cho phép con người truy cập. Bây giờ bạn đã sẵn sàng để kiểm tra khả năng bảo vệ.
 
 ##### Đánh giá hiệu quả bảo vệ
 
