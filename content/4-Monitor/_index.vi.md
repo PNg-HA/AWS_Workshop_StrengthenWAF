@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 4. </b> "
 ---
 
-Trong phần này, bạn sẽ học cách giám sát AWS WAF bằng CloudWatch và cách điều tra logcủa nó. AWS WAF ghi lại metric CloudWatch cho từng WebACL và từng rule WAF trong WebACL. Ngoài ra, AWS WAF trong workshop này được cấu hình sẵn để ghi logtheo thời gian thực thông qua Amazon Kinesis Firehose tới Amazon S3. Bạn sẽ có cơ hội điều tra các logđó bằng cách truy vấn chúng thông qua Amazon Athena.
+Trong phần này, bạn sẽ học cách giám sát AWS WAF bằng CloudWatch và cách điều tra log của nó. AWS WAF ghi lại metric CloudWatch cho từng WebACL và từng rule WAF trong WebACL. Ngoài ra, AWS WAF trong workshop này được cấu hình sẵn để ghi log theo thời gian thực thông qua Amazon Kinesis Firehose tới Amazon S3. Bạn sẽ có cơ hội điều tra các log đó bằng cách truy vấn chúng thông qua Amazon Athena.
 
 Bạn có thể kiểm tra cấu hình trong thẻ “Ghi logvà metric” trong trang Web ACL
 ![1.1](/images/4/1.png)

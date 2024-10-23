@@ -30,9 +30,9 @@ First, create a regex pattern set to filter out static content based on develope
 1. Navigate to Regex pattern sets and verify WAF console region selection is correct
 
 ![1.1](/images/3/3/regrex_s1.png)
-2. there is a regex pattern already set up for you”. Click it for more detail
+2. There is a regex pattern already set up for you. Click it for more detail
 
-![1.1](/images/3/3/regrex_s2.png)
+![1.1](/images/3/3/regrex_s3.png)
 Regular expressions: *(?i)\.(jpe?g|gif|png|svg|ico|css|js|woff2?)$*
 
 

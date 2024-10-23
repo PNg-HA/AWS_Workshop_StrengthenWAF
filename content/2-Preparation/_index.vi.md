@@ -26,7 +26,7 @@ curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/waf-workshop.yaml' --output waf-workshop.yaml
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/deploy-workshop-own-account.sh' --output deploy-workshop-own-account.sh
 ```
-/2
+
 ![1.1](/images/2/2.png)
 3. Chạy tập lệnh khởi động trong thiết bị đầu cuối
 ```bash
@@ -39,7 +39,7 @@ Vui lòng chỉnh sửa dòng đầu tiên của tập lệnh từ “#!/bin/bas
 và chạy tập lệnh bằng lệnh sau ```./deploy-workshop-own-account.sh```
 ![1.1](/images/2/3c.png)
 
-Nếu bạn nhận được thông báo *“Không tạo/cập nhật stack được.”* thì hãy sử dụng lệnh ```aws cloudformation describe-stack-events --stack-name waf-workshop``` hoặc kiểm tra trang Stack trong bảng điều khiển CloudFormation để khắc phục sự cố:
+Nếu bạn nhận được thông báo *“Failed to create/update the stack.”* thì hãy sử dụng lệnh ```aws cloudformation describe-stack-events --stack-name waf-workshop``` hoặc kiểm tra trang Stack trong bảng điều khiển CloudFormation để khắc phục sự cố:
 ![1.1](/images/2/3d1.png)
 ![1.1](/images/2/3d2.png)
 bạn sẽ thấy rằng bạn phải điều chỉnh MemorySize trong tệp yaml xuống 3008.

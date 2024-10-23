@@ -8,16 +8,16 @@ pre : " <b> 4.3. </b> "
 
 #### Kịch bản
 
-Bạn có thể sử dụng tính năng Chèn tiêu đề yêu cầu để giúp xác thực rằng các yêu cầu được gửi đến ứng dụng của bạn đã được AWS WAF đánh giá. Bạn có thể định cấu hình ứng dụng của mình để chỉ cho phép các yêu cầu có chứa tiêu đề tùy chỉnh đã chỉ định. Bạn cũng có thể chèn tiêu đề để ứng dụng của mình có thể xử lý yêu cầu khác nhau dựa trên sự hiện diện của tiêu đề hoặc chỉ cần ghi lại tiêu đề trong logứng dụng của bạn để báo cáo và phân tích.
+Bạn có thể sử dụng tính năng Chèn header yêu cầu để giúp xác thực rằng các yêu cầu được gửi đến ứng dụng của bạn đã được AWS WAF đánh giá. Bạn có thể định cấu hình ứng dụng của mình để chỉ cho phép các yêu cầu có chứa header tùy chỉnh đã chỉ định. Bạn cũng có thể chèn header để ứng dụng của mình có thể xử lý yêu cầu khác nhau dựa trên sự hiện diện của header hoặc chỉ cần ghi lại header trong log ứng dụng của bạn để báo cáo và phân tích.
 
 > Không có bước xác minh nào trong bài tập này.
 
 #### Hướng dẫn
 
-Sử dụng tính năng [chèn tiêu đề] yêu cầu (https://docs.aws.amazon.com/waf/latest/developerguide/customizing-the-incoming-request.html) của AWS WAF. Xác minh sự hiện diện của các tiêu đề đã chèn bằng [LogAmazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
+Sử dụng tính năng yêu cầu [chèn header](https://docs.aws.amazon.com/waf/latest/developerguide/customizing-the-incoming-request.html) của AWS WAF. Xác minh sự hiện diện của các header đã chèn bằng [LogAmazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
 
 #### Quy trình
-##### Chèn Tiêu đề Tùy chỉnh:
+##### Chèn header Tùy chỉnh:
 
 1. Điều hướng đến tab **Rule** của Web ACL
 
@@ -50,7 +50,7 @@ Sử dụng tính năng [chèn tiêu đề] yêu cầu (https://docs.aws.amazon.
 
 1. Trên trang **Đặt mức độ ưu tiên của rule**, nhấp vào **Lưu**
 2. Trên tab **Rule**, hãy xác minh rằng rule tùy chỉnh mới hiện đã được liệt kê
-3. Bạn đã hoàn tất việc thêm rule tùy chỉnh, hãy chèn tiêu đề tùy chỉnh.
+3. Bạn đã hoàn tất việc thêm rule tùy chỉnh, hãy chèn header tùy chỉnh.
 
 ![1.1](/images/4/3/prio.png)
-> **Xin chúc mừng!** Bạn đã định cấu hình thành công việc chèn tiêu đề tùy chỉnh.
+> **Xin chúc mừng!** Bạn đã định cấu hình thành công việc chèn header tùy chỉnh.

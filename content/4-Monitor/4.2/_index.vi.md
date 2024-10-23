@@ -12,7 +12,7 @@ Một số yêu cầu từ máy quét tự động bao gồm tiêu đề `myster
 
 #### Hướng dẫn
 
-Sử dụng Amazon Athena để khám phá logAWS WAF và tìm giá trị của tiêu đề `mystery-hint` trong các yêu cầu. Giá trị được mã hóa base64, vì vậy bạn cần giải mã văn bản để tìm giá trị. Xây dựng rule WAF tùy chỉnh để chặn giá trị tiêu đề mystery-hint bằng câu lệnh thích hợp (xem xét chuyển đổi văn bản có thể cần thiết).
+Sử dụng Amazon Athena để khám phá log AWS WAF và tìm giá trị của tiêu đề `mystery-hint` trong các yêu cầu. Giá trị được mã hóa base64, vì vậy bạn cần giải mã văn bản để tìm giá trị. Xây dựng rule WAF tùy chỉnh để chặn giá trị tiêu đề mystery-hint bằng câu lệnh thích hợp (xem xét chuyển đổi văn bản có thể cần thiết).
 
 Xác thực rule của bạn bằng cách xem lại bảng điều khiển kiểm tra tự động mà quá trình quét tự động **MysteryTest** đang vượt qua. Nếu bạn đã hoàn thành các tác vụ khắc phục, thì việc hoàn thành bài tập này sẽ chuyển ô cuối cùng trên tab **Tiến trình của tôi** của Bảng điều khiển WAF sang **màu xanh lá cây!**
 
@@ -31,7 +31,7 @@ Bạn có thể bỏ qua phần này nếu bạn đã đăng nhập vào bảng 
 
 ##### Tìm giá trị của Mystery Hint
 
-Sử dụng truy vấn Amazon Athena để phân tích cú pháp logAWS WAF và tìm giá trị của tiêu đề `mystery-hint`.
+Sử dụng truy vấn Amazon Athena để phân tích cú pháp log AWS WAF và tìm giá trị của tiêu đề `mystery-hint`.
 
 1. Mở tab **Saved queries** và nhấp vào truy vấn **MysteryHintHeader**.
 
@@ -93,4 +93,4 @@ Xem lại bảng điều khiển workshop và xác minh rằng **MysteryTest** v
 ![1.1](/images/4/2/e_s1.png)
 
 ![1.1](/images/4/2/e_s2.png)
-> **Xin chúc mừng!** Bạn đã khám phá thành công dữ liệu logAWS WAF và chặn Mystery Test.
+> **Xin chúc mừng!** Bạn đã khám phá thành công dữ liệu log AWS WAF và chặn Mystery Test.

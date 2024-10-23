@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 6. </b> "
 ---
 
-1. Làm trống tất cả các thùng S3 liên quan đến workshop.
+1. Làm trống tất cả các bucket S3 liên quan đến workshop.
 
 2. Đi đến [Trang CloudFormation Stack](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=&filteringStatus=active&viewNested=true).
 
