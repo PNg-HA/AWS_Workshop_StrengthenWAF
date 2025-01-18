@@ -6,19 +6,18 @@ chapter : false
 ---
 # Strengthen your web application defenses with AWS WAF
 ### Welcome!
-This workshop provides you with the knowledge and skills to strengthen your web application defenses with AWS WAF. You'll gain hands-on experience building an effective set of controls around your web application by learning to:
+This workshop, you will have more experience and skills to secure your web application by using AWS WAF.
 
-- Mitigate common threats: Understand and implement controls to counter frequent web attacks like SQL injection and cross-site scripting.
-- Leverage advanced techniques: Explore advanced capabilities, including Bot Control, custom HTTP responses, and JSON inspection.
-- Monitor web traffic: Analyze traffic by learning how to use AWS WAF logs, build near-real time dashboards and gain insights to further optimize your security posture.
+There are controls built to secure your web app, by learning the following contents:
+- Common threat mitigation: grasp the basic concepts of popular web attacks (e.g. SQLi and XSS) and how to counter them.
+- High-level techniques: Discover high-level techniques like custom HTTP response, Bot Control and json investigation. 
+- Web payload monitoring: using AWS WAF logs to analyze traffic.
 
 ### About the workshop
-This is a 300-level workshop aimed at IT professionals who are already familiar with core AWS services, and are looking to better understand AWS WAF and its capabilities.
-
-The expected workshop duration is approximately 2 hours.
+The level of workshop is 300, aiming for IT technicians who are used to basic AWS services. It is about 2 hours to complete all the tasks in this workshop.
 
 ### Modules
-This workshop is broken up into setup and then four modules:
+This workshop is divided to:
 
 - [Introduction](1-Introduction/)
 - [Preparation](2-Preparation/)

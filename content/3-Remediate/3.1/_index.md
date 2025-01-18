@@ -1,5 +1,5 @@
 ---
-title : "Apply Foundational Protection with AWS Managed Rules"
+title : "Implement Basic Protection using AWS Managed Rules"
 date : "`r Sys.Date()`"
 weight : 1
 chapter : false
@@ -7,51 +7,50 @@ pre : " <b> 3.1 </b> "
 ---
 
 ### Scenario
-Your security team has ranked protection against common attacks, such as Cross-Site Scripting (XSS), path traversal, and SQL injection (SQLi) as a high priority. Your task is to use AWS WAF to reduce the risk of these common web application attacks against your website. Your organization would prefer a fully managed solution that does not require manual creation of rules.
+Your security team has prioritized protection against common attacks such as Cross-Site Scripting (XSS), path traversal, and SQL injection as a high priority. Your task is to find ways to mitigate the risks of web application attacks using AWS WAF. Your business wants a fully managed solution that does not require manually creating rules.
 
 ### Instructions
-Review the Web ACL that is already configured for your web application. Add the **Core rule set** and **SQL database** managed rule groups to the WebACL. The Core rule set (CRS) rule group contains rules that are generally applicable to web applications. This provides protection against exploitation of a wide range of vulnerabilities, including high risk and commonly occurring vulnerabilities described in OWASP publications such as OWASP Top 10. The SQL database rule group contains rules to block request patterns associated with exploitation of SQL databases, like SQL injection attacks. Review the [AWS WAF documentation](https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-list.html) for more details on rules included in the Core rule set and the SQL database rule group.
+Review the Web ACL configuration for the web application. Add the **Core rule set** and **SQL database** managed rule groups to it. The Core rule set includes rules that apply to most web applications, providing protection against a wide range of threats, from basic to critical. The SQL database rule group are designed to block requests related to SQL database exploitation (e.g., SQL Injection). For more information about the Core Rule Set and SQL Database Managed Rule Groups, refer to the [AWS WAF documentation](https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-list.html).
 
-After implementing the Core rule set and the SQL Database rule group, test your protections using both manual and automated scans. Use the manual scanner, or check the **WAF Dashboard** for automated scans.
+After implementing the Core rule set and the SQL Database rule group, test protections with manual and automatic scans using the **WAF Dashboard**.
 
 ### Procedure
 #### Add managed rules to the WAF ACL
-Navigate to the WAF ACL and its Rules tab:
+Open the WAF ACL and navigate to the Rules tab:
 
 1. Open the [AWS WAF Console](https://console.aws.amazon.com/wafv2/homev2/web-acls?region=global).
 
-2. Verify that you are using the Global (CloudFront) region 
+2. Ensure that the Global (CloudFront) region selected.
 
 ![2](/images/3/1/2.png)
-1. Open the WebACL called waf-workshop-webacl 
+3. Open the WebACL named waf-workshop-webacl.
 
-2. Select the Rules tab 
+4. Navigate to the Rule tab. 
 
-Add the Core rule set and the SQL database managed rule groups:
+Add the Core rule set and the managed rule group for SQL database:
 
-1. Click on Add Rules and select Add managed rule groups 
+1. Click Add Rules, then select Add managed rule groups.
 ![1.1](/images/3/1/1.png)
 
-2. Expand AWS managed rule groups 
+2. Expand the AWS managed rule groups section.
 
-3. Click on the switch for the Core rule set (changes color to blue)
+3. Enable the toggle for the Core rule et (turns blue). (changes color to blue)
 
 ![1.1](/images/3/1/4a.png)
-1. Click on the switch for the SQL database (changes color to blue) 
+4. Enable the toggle for the SQL database (turns blue).
 ![1.1](/images/3/1/4b.png)
-1. Click on Add rules on the bottom of the page
+5. Click Add rules at the bottom of the page.
+
+6. On the Set rule priority page, click on Save. 
+
+7. On the Rule tab, confirm that both the AWS Managed Common and SQLi Rule Sets have been successfully added.
+
+8. You have added two managed rule sets to the WebACL. You can proceed to test the protections.
 
 
-6. On the Set rule priority page, click on Save 
-
-7. On the Rules tab, verify that AWS Managed Common and SQLi Rule Sets are both present 
-
-8. You have added two managed rule sets to the WebACL. You are now ready to test them.
-
-
-### Evaluate protection effectiveness
-Follow the instructions to manually test protections from the Evaluate section to validate that SQL injection, Cross-site scripting (XSS) and Path traversal tests are passing.
+### Assess the effectiveness of the protection
+Perform manual protection testing following the instructions in the Evaluate section to ensure that SQL Insert, Cross-site Scripting (XSS), and Path Traversal tests are handled properly.
 ![1.1](/images/3/1/e1.png)
-Review the progress dashboard and verify that automated scans for tests listed above are passing.
+Review the progress dashboard to confirm that automatic scans for the above tests have passed.
 ![1.1](/images/3/1/e2.png)
-Congratulations! You have successfully used Core rule set and SQL database rule set to apply foundational protections against web application attacks!
+You have successfully implemented the Core rule set and the SQL database rule set, providing essential protection against web application attacks!

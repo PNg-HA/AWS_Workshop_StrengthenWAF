@@ -6,16 +6,15 @@ chapter : false
 pre : " <b> 3. </b> "
 ---
 
-Your organization wants to use AWS WAF as part of a layered approach to defending its key web application. Please follow the activities to apply different types of protection using AWS WAF.
+Your business plans to use AWS WAF as part of a layered security approach to protect your critical applications. Below are the steps to implement various protection methods using AWS WAF in this module:
 
-In this module, you will deploy the following tasks:
+- Implement Basic Protection using AWS Managed Rules
+- Secure Paths using Custom Rules
+- Monitor Bot Traffic patterns
+- Block Bad Bots using Custom Rules
+- Control Bot Traffic Rates and Send Custom Responses
+- Enhance API Protection using Request Body Parsing
 
-- Apply Foundational Protection with AWS Managed Rules
-- Protect Paths with Custom Rules
-- Gain visibility into Bot Traffic
-- Block Bad Bots with Custom Rules
-- Rate Limit Bot Traffic and Send Custom Responses
-- Protect APIs with Request Body Parsing
 
 <!-- By the end of this Module, the deployment includes the following resources:
 ![Architecture](/images/m0/mod0-asm-archi.png) -->

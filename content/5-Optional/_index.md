@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 5. </b> "
 ---
 
-Exercises in this section are optional and available if you have sufficient time to complete the core exercises.
+This section is optional and are available if you have enough time to complete the core exercises.
 
 ### Content
 1. [Create a CloudWatch Alarm for an AWS WAF Metric](5.1/)

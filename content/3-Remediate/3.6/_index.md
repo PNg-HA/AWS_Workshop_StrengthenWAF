@@ -7,47 +7,56 @@ pre : " <b> 3.6 </b> "
 ---
 
 ### Scenario
-The web store has built an API to help with integrations with their partners. This API is available to retrieve a list of up to 100 products at a time. The development team is working on adding layers of security in the API code. Your task is to add WAF protection that will only allow valid JSON requests and limit the number of listed products to a number between 1 and 100.
 
-Here is a sample valid JSON used to invoke this API:
+Your business has developed an API that allows partners to retrieve a product list, with a maximum limit of 100 products per request. To enhance security, a WAF protection layer needs to be added. Your task is to configure the protection to allow only valid JSON requests and ensure that the numrecords value is within the range of 1 to 100.
+
+Valid JSON example for this API:
 ```bash
 { "numrecords":"25" }
 ```
-Only requests with the valid JSON formatting and the valid value for numrecords (1-100 inclusive) should be allowed. The API is available at the path **/api/listproducts.php**. For API requests that do not pass all of the validation steps, the WAF rule should return a 400 http response code. According to RFC 2616, the 400 http response code indicates that the request could not be understood and the client should not repeat the request without modifications.
+
+Only requests with valid JSON syntax and a numrecords value between 1 and 100 will be accepted. The API is available at the path **/api/listproducts.php**. Requests that fail validation must be rejected with an HTTP 400 response code.
+
 
 ### Instructions
-First, create a regex pattern set that matches the valid value (1-100) for numrecords. Here is a regular expression that you can use:
+
+First, create a regex pattern to validate the value of numrecords (1-100):
+
 ```bash
 ^0*(?:[1-9][0-9]?|100)$
 ```
-Then, create a WAF rule with two statements. One statement should match the URI path of the API (/api/listproducts.php). Another statement needs to inspect the JSON body of incoming API requests, and validate that the JSON syntax is valid. It should also validate the value of "numrecords" using the regex pattern set. If the URI path matches, but the syntax is not correct, then the WAF rule should return a custom response using a 400 http response code.
 
-After implementing the new WAF rule to guard against API abuse, test your protection using both manual and automated scans. For manual scans, click on the link in the event outputs. For automated scans, check the Progress Dashboard in Event Outputs .
+Then, create a WAF rule consisting of two statements:
+1. Check the URI path of the request (must match /api/listproducts.php).
+2. Verify that the JSON body has a valid syntax and that the numrecords value matches the regex pattern.
+
 
 ### Procedure
-The procedure below is lengthier and more complex than in previous tasks. Please pay special attention to the steps listed below.
 
-#### Regex Pattern Set
+
+The procedure below is longer and more complex than the previous sections. Please pay close attention to the steps outlined below.
+
+#### Create the Regex Pattern Set
 Create a regex pattern set that matches numbers 1-100:
 
-1. Navigate to Regex pattern sets and verify the WAF console region selection is correct
+1. Navigate to the Regex pattern sets section in WAF.
 
-2. Click on Create regex pattern set 
+2. Select Create regex pattern set.
 
 3. Regex pattern set name: number-1-to-100
 
 4. Regular expressions: **^0*(?:[1-9][0-9]?|100)$**
 
-5. Click on **Create regex pattern**
+5. Click **Create regex pattern**
 
 ![1.1](/images/3/6/regrex.png)
-#### WAF Rule
+#### Create the WAF Rule
 
-1. Create a regular WAF rule that matches all the statements:
+1. In the Web ACL, navigate to the Rules tab.
 
-2. Navigate to the Rules tab of the Web ACL
+2. Select Add Rule.
 
-3. Click on Add Rules and select Add my own rules and rule groups 
+3. Select Add my own rules and rule groups.
 
 ![1.1](/images/3/6/add_rule.png)
 #### Rule details
@@ -57,7 +66,7 @@ Create a regex pattern set that matches numbers 1-100:
 3. If a request: Matches all the statements (AND) 
 
 ![1.1](/images/3/6/rule_details.png)
-#### Statement #1
+#### Statement 1
 
 1. Inspect: URI path
 2. Match type: Exactly matches string
@@ -65,9 +74,9 @@ Create a regex pattern set that matches numbers 1-100:
 4. Text transformation: none 
 
 ![1.1](/images/3/6/s1.png)
-#### Statement #2
+#### Statement 2
 
-1. Negate statement results (checked)
+1. Check Negate statement results
 2. Inspect: Body
 3. Content type: JSON
 4. JSON match scope: Values
@@ -75,38 +84,38 @@ Create a regex pattern set that matches numbers 1-100:
 
 ![1.1](/images/3/6/s2.png)
 
-Match the specific JSON element with the regex statement:
+Verify JSON element matches regex statement:
 
 1. Content to inspect: Only included elements
 2. Included elements: /numrecords
 3. Match type: Matches pattern from regex pattern set
-4. Regex pattern set: (previosly created pattern set matching numbers 1-100)
+4. Regex pattern set: number-1-to-100
 5. Text transformation: None
 6. Oversize handling: Continue 
 ![1.1](/images/3/6/s2b.png)
-#### Then
+#### Match action
 
 1. Action: Block
-2. Custom response: Enable (checked)
+2. Custom response: Enable
 3. Response Code: 400
-4. Click on Add rule 
+4. Click Add rule 
 
 ![1.1](/images/3/6/then.png)
-#### Rule priority
+#### Set rule priority
 
-1. On the Set rule priority page, click on Save 
+1. Click Save on the Set rule priority page.
 
 ![1.1](/images/3/6/prio_s1.png)
-2. On the Rules tab, verify that the new custom rule is now listed 
+2. On the Rules tab, verify that the new custom rule has been added successfully and listed.
 
-3. You have completed adding the custom rule that checks JSON values in the body of the request and protects your API against incorrect usage. You are now ready to test the protection.
+#### Assess the effectiveness of the protection
 
-#### Evaluate protection effectiveness
-Use both manual and automated testing methods to evaluate the effectiveness of the new rule in your ACL:
 
-1. Use manual scanning from the Evaluate section. Validate that API Misuse test is passing.
+
+1. Perform a manual scan from the Evaluate section and ensure that the API Misuse test passes successfully.
 
 ![1.1](/images/3/6/e_s1.png)
-2. Review the workshop dashboard and verify that the API Misuse automated scan is passing (the test should be color-coded green). Refer to the Evaluate section for instructions.
+
+2. Review the workshop dashboard to verify that the API Misuse automated test has passed.
 
 ![1.1](/images/3/6/e_s2.png)

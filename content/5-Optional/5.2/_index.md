@@ -1,6 +1,5 @@
 ---
 title : "Review the WAF Bot Dashboard"
-date : "`r Sys.Date()`"
 weight : 2
 chapter : false
 pre : " <b> 5.2. </b> "
@@ -8,13 +7,14 @@ pre : " <b> 5.2. </b> "
 
 #### Scenario
 
-If you have enabled AWS WAF Bot detection rule in an earlier exercise, your Bot Control dashboard should contain interesting data to analyze. Review the dashboard to analyze the bot activity on your site.
+Have you enabled the AWS WAF Bot detection rule in an earlier exercise, your Bot Control dashboard should contain some interesting data for analyzation. Review the dashboard to analyze the bot activity on your site.
 
 #### Instructions
 
-In your WebACL, navigate to the Bot Control tab and review the data for the last 1 hour. Use the dashboard to get a quick insight into bot traffic on your site:
-- What percentage of traffic is bots?
-- How many bots were allowed through in the last 5 minutes? How many were blocked?
+Access your WebACL console. From there, switch to the Bot Control tab and review the recorded data from the last 1 hour. Use the dashboard to get a quick insight into bot traffic on your site, then answer the following questions.
+
+- How much of the traffic is bots (in percentage)?
+- How many bots were allowed and blocked through in the last 5 minutes?
 - What is the top category of bots?
 - How many times did **Zyborg** bot attempt to reach your website in the last 5 minutes?
 
@@ -25,30 +25,29 @@ In your WebACL, navigate to the Bot Control tab and review the data for the last
 
 1. Navigate to the WebACL in the AWS WAF console
 
-2. Select the **Bot Control** tab
+2. Switch to the **Bot Control** tab
 
 ![bot_dashboard](/images/5/2/bot_dashboard.png)
 
-3. You should see graphs similar to the screenshot
+3. You should see graphs similar to those in the screenshot
+
 ![bot_dashboard](/images/5/2/bot-dashboard_2.png)
 
 ##### Collect the metrics
 
 1. Check the data under **All requests, in percentages**
 
-2. The screenshot below shows the section with a red rectangle
-
-3. Click on **1h** in the top right of the dashboard
+2. Click on **1h** in the top right of the dashboard
 
 ![1.1](/images/5/2/s2.png)
 
-4. The chart will show data in 5-minute time intervals
+3. The chart will show the data of the last hour in 5-minute time intervals
 
-5. Review the number of requests allowed vs. blocked in within the last 5-minute interval
+4. Review the number of allowed requests in comparision with the block reports within the last 5 minutes.
 
 ![1.1](/images/5/2/s5.png)
 
-6. The next graph down shows the top categories of bots
+5. The next graph down shows the top categories of bots
 
 ![1.1](/images/5/2/s6.png)
 ##### Collect Data on a Specific Bot

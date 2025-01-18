@@ -1,5 +1,5 @@
 ---
-title : "Gain visibility into Bot Traffic"
+title : "Monitor Bot Traffic patterns"
 date : "`r Sys.Date()`"
 weight : 3
 chapter : false
@@ -7,59 +7,61 @@ pre : " <b> 3.3 </b> "
 ---
 
 ### Scenario
-Your organization's security team suspects that a large fraction of traffic on your website comes from various bots, both wanted (such as search engines) and unwanted bots (such as content scrapers). You need to get better data on the number and type of bots on your website. You should NOT block any bot traffic yet, at least not until you have had a chance to analyze all sources of traffic. Your organization also wants to scope the use of bot control for cost control and avoid applying unneeded protections on static objects (CSS stylesheets, JS files, etc.). Web developers have provided the following RegEx statement that matches all of the static content on the website:
+Your business’s security team has identified that a large amount of website traffic comes from various types of bots, including both wanted and unwanted bots. You need more detailed insights into the number and type of bots on the website before deciding on any traffic-blocking actions. The business also wants to limit the scope of bot control usage to reduce costs and avoid unnecessary protection for static content such as CSS, JS, or images. Developers have provided the following RegEx pattern to identify static content on the website:
 
 ```(?i)\.(jpe?g|gif|png|svg|ico|css|js|woff2?)$```
 
 ### Instructions
-You can use the AWS WAF Bot Control managed rule set to gain visibility into the bot traffic on your site. The Bot Control managed rule group provides options for common and targeted bots. The common bots option adds labels to self-identifying bots, verifies generally desirable bots, and detects high confidence bot signatures, targeted bots focuses on pervasive bots. For more details, please review [documentation](https://docs.aws.amazon.com/waf/latest/developerguide/waf-bot-control.html).
 
-Create a **regex pattern** set that matches the static content. Setup the AWS WAF Bot Control rule group, use **scope-down** to exclude the static content (using the regex pattern), and ensure it's only counting the traffic (override the default behavior). Note that the AWS WAF Bot Control rule group will still apply AWS WAF labels to bot requests. You will be able to use those labels to control requests on a granular level.
+You can use the AWS WAF Bot Control managed rule group to monitor bot traffic on the website. This rule group offers two main options: Common Bots and Targeted Bots. For more information, refer to the [documentation](https://docs.aws.amazon.com/waf/latest/developerguide/waf-bot-control.html).
 
-After several minutes, you can navigate to the Bot Control tab to view additional details about bot traffic on your website.
+The first step is to create a **regex pattern** set to identify static content. Then, configure the AWS WAF Bot Control rule group, apply a **scope-down** statement to exclude static content (based on the regex pattern), and set it up to count traffic only. Although it does not block traffic, the Bot Control rule group labels bot requests with AWS WAF, providing detailed control.
+
+Within just a few minutes, you can access the Bot Control tab in AWS WAF to view detailed information about bot traffic on the website.
 
 {{% notice info %}}
-This task does not have any protection validation steps. You will use labels applied by the AWS WAF Bot Control rule group in the next two tasks.
+This task does not have any protective measures to be verified. The labels applied by the AWS WAF Bot Control rule group will be used in the next two tasks.
 {{% /notice %}}
 
 
 ### Procedure
-#### Regex Pattern Set
-First, create a regex pattern set to filter out static content based on developer input.
+#### Create a regex pattern Set for static content
 
-1. Navigate to Regex pattern sets and verify WAF console region selection is correct
+1. Navigate to Regex pattern sets in AWS WAF and verify that the selected region in the console is correct.
 
 ![1.1](/images/3/3/regrex_s1.png)
-2. There is a regex pattern already set up for you. Click it for more detail
+2. A predefined regex pattern is available, click on it to view the details.
 
 ![1.1](/images/3/3/regrex_s3.png)
 Regular expressions: *(?i)\.(jpe?g|gif|png|svg|ico|css|js|woff2?)$*
 
 
 ### AWS WAF Bot Control rule set
-Next, enable AWS WAF Bot Control to gain visibility into bot traffic. Override rule actions to count to make sure you are not blocking any bot traffic. This will count the number of matches without blocking any traffic. Use scopedown statements to avoid scanning static objects that match the regex pattern.
+Activate AWS WAF Bot Control to monitor bot traffic. Override the default action of the rule to Count, ensuring no traffic is blocked. Use scopedown statements to limit bot control application to requests that do not match the static content pattern (as defined in the regex pattern set).
 
-#### Start adding AWS WAF Bot Control
-1. Open the waf-workshop-webacl in the AWS WAF console and select the Traffic overview tab
+
+#### Add AWS WAF Bot Control
+1. Access the AWS WAF Console and open waf-workshop-webacl.
 
 ![1.1](/images/3/3/start_s1.png)
 
-2. In the Data filters section, select the Bot Control tab
+2. Go to the Traffic Overview tab.
 
 
-3. In the How it works section, click on Add AWS WAF Bot Control rule group
+3. Under the Data Filters section, select to the Bot Control tab.
+4. Click on Add AWS WAF Bot Control Rule Group in the How it works section.
 
 ![1.1](/images/3/3/regrex_s3.png)
 #### Bot Control configuration
-1. For Bot Control inspection level, choose Common as the inspection level
+1. Bot Control inspection level: Select Common.
 
 ![1.1](/images/3/3/bot_s1.png)
 
-2. In Bot Control Rules, set Override all rule actions to Count 
+2. Bot Control rules: Set Override all rule actions to Count.
 
 ![1.1](/images/3/3/bot_s2.png)
-#### Scope-down statement
-1. Choose **Only inspect requests that match a scope-down statement**
+#### Scope-Down statement configuration
+1. Choose the scope of inspection: **Only inspect requests that match a scope-down statement**
 
 2. Scope-down statement: enabled (checked)
 
@@ -68,26 +70,25 @@ Next, enable AWS WAF Bot Control to gain visibility into bot traffic. Override r
 
 4. Inspect: URI path
 
-
 5. Match type: Matches pattern from regex patttern set
 
-6. Regex pattern set: static-content (the regex pattern set created above)
+6. Regex pattern set: static-content
 
 7. Text transformation: None 
 
 ![1.1](/images/3/3/scope_s1.png)
 
 ### Set priority and review rules
-1. On the Set rule priority page, click on Save (no changes needed)
+1. On the Set rule priority page, click Save.
 
 ![1.1](/images/3/3/prio_s1.png)
 
-1. Verify that Bot Control rule set is now listed on Rules tab in the Web ACL
+2. Verify that the Bot Control rule set is listed in the Rules tab of the Web ACL.
 
 ![1.1](/images/3/3/prio_s2.png)
 
-3. Within a few minutes you will gain additional metrics on the Bot Control tab
+3. Wait a few minutes for bot traffic details to appear in the Bot Control tab.
 ![1.1](/images/3/3/prio_s3.png)
-4. Proceed to the next task to take advantage of the added visibility provided by AWS WAF Bot Control
 
-Congratulations! You have successfully integrated AWS WAF Bot Control which will start applying labels to bot requests. You will use those labels in the following tasks.
+Congratulations! You have successfully integrated AWS WAF Bot Control, enabling labeling for bot requests on your website. These labels will be used for detailed control actions in following tasks.
+

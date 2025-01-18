@@ -8,11 +8,10 @@ pre : " <b> 2. </b> "
 
 ### Download and execute the setup script
 
-We will download file containing the workshop's resources, the CloudFormation template used to provision them, and the setup script. We will then run the script to deploy the workshop in your own AWS account.
+You will need to download and deploy the CloudFormation template with a script to set up the resource of this workshop in your own AWS account.
 
-1. Create a directory named "waf-workshop".
-
-2. Run the following code (you can copy and paste all commands together):
+1. Make a directory named “waf-workshop” and change your working directory to this directory.
+2. Execute the code below (you can run each command or run all commands at one time):
 
 ```bash
 # Download workshop assets
@@ -27,7 +26,7 @@ curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62
 curl 'https://static.us-east-1.prod.workshops.aws/public/9bf792a6-2354-4106-9e62-7e75544c4ccc/static/deploy-workshop-own-account.sh' --output deploy-workshop-own-account.sh
 ```
 ![1.1](/images/2/2.png)
-3. Run the bootstrap script in the terminal
+3. Execute the bootstrap script
 ```bash
 sh deploy-workshop-own-account.sh
 ```
@@ -48,16 +47,16 @@ After editting the yaml stack, run the script again. You will wait for 15 minute
 
 Please remember to delete all deployed resources (CloudFormation stack) after completing the workshop to avoid unnecessary charges.
 
-### Evaluate
+### Assessment
 
-This workshop will guide you through evaluating and improving the security posture of a web application. The environment you'll be working in consists of a web application hosted on AWS, intentionally designed to be vulnerable. Your objective is to identify these vulnerabilities and implement security measures to mitigate them.
+In this workshop, the deployed web application is built in purpose to contain web vulnerabilities. You would be guided to assess and enhance the security posture of a web application. The goal is to find the existing vulnerabilities and deploy countermeasures.
 
-Here's an overview of the steps in this section:
-1. Understand the architecture: Understand the deployed architecture, and identify the underlying infrastructure components.
+Following are the main steps in this section:
+1. Architecture overview: Take a look at the architecture and understand its workflow and the functions of the underlying services.
 
-2. Access workshop progress dashboard: Explore the findings from automated scans of the web application, and your overall progress.
+2. Progress dashboard tracking: Track your progress and investigate the reports from automated web app vulnerability scan.
 
-3. Run manual scans: Perform manual security scans on the web application and identify remaining challenges.
+3. Manual scan execution: Implement web app scan manually to find the existing vulnerabilities.
 
 #### Workshop Architecture
 
@@ -68,39 +67,33 @@ Go to the Outputs tab of the Stack page of CloudFormation page.
 
 ![architecture](/images/2/output.png)
 
-1. The first step is to find the website URL in the output named 1xWebApplicationURL. This sample website is already deployed in your AWS account for the workshop. Try opening it in a new tab. Your goal is to secure this website with AWS WAF.
+1. 1xWebApplicationURL: The objective of this workshop is to use AWS WAF to protect this web.
 
-2. You can access the AWS WAF console by using the link stored in the 2xWAFConsole output value. You will be using this console throughout the workshop, to apply protections to the web application you have just seen.
+2. 2xWAFConsole: AWS WAF console.
 
-3. Open the link under 3xProgressDashboard in another tab. This dashboard tracks your progress throughout the workshop and updates automatically as you complete tasks.
+3. 3xProgressDashboard: The dashboard to track your progress. It automatically marks a task complete after you have fixed a vulnerability.
 
-4. You can also manually test your WAF protections using the link provided in the 4xTestProtections output. This will come in handy later in the workshop.
+4. 4xTestProtections: Manually examine the WAF defense with this link.
 
-5. 5xTriggerRateLimiting will let you test the rate-limiting feature of AWS WAF later in the workshop.
+5. 5xTriggerRateLimiting: contains a script that is triggered whenever this link is requested, it tests the rate-limiting function of AWS WAF.
 
 
 #### Website Scanning Environment and Tools
-This workshop provides two methods for testing AWS WAF rules that you will be implementing: automated and manual scanning. These scanners simulate common web attack vectors to help you identify and mitigate potential security risks, such as:
+You can examine the AWS WAF rules either by the automated scanning or the by manual scanning, which creates web exploitation vectors, such as SQLi, XSS, Path Traversal, Sensitive Path Access, Bot Activity, API Misuse.
 
-- SQL Injection (SQLi): Exploiting vulnerabilities to inject malicious code into database queries.
-- Cross-site Scripting (XSS): Injecting malicious scripts into requests.
-- Path Traversal: Accessing unauthorized files or directories on the web server.
-- Sensitive Path Access: Attempting to access sensitive files or directories that should be restricted.
-- Bot Activity: Identifying automated traffic and blocking malicious bots.
-- API Misuse: Testing for improper usage of APIs.
+The tests in this workshop are created for tracking your workshop progress with common cases. In the production environment, pleas keep in mind to carry out security analysis and testing processes byond the scope of this workshop.
 
-These tests are designed to provide common scenarios for evaluating your workshop progress. Remember that for production deployments, it's crucial to conduct thorough security analysis and testing beyond the scope of this workshop.
-
-Congratulations! You have now learned about the architecture used in this workshop, how to find relevant stack outputs, and basics about the scans performed against your website. Continue to the next section to learn more about our automated scanning and how to trigger additional scans on demand.
+Congratulations! You have just discovered the workshop architecture as well as the functions of 5 stack outputs and concepts of the scans on the web application. The next session will guide you about not only automated scanning but also how to trigger additional scans on demand.
 
 
 #### Automated Scanning
-The Progress Dashboard provides a visual representation of your environment's security posture. It displays the number of automated tests (e.g., SQL injection, XSS) that are currently passing for your WAF configuration. The link to access this dashboard can be found within the Outputs tab of the CloudFormation stack.
+Reachable by the CloudFormation stack outputs, the function of Progress Dashboard is to show the web application security posture with the automated tests to the configuration of the WAF.
 
-Note that sometimes there may be a slight delay in data update. If you believe you have completed a task, but can't see it on the dashboard, please wait a minute or two and check again.
+Note that the small delay may happen during the data update. If you thin a task has been done, please wait 1 to 2 minutes then check again.
 
 ![dashboard](/images/2/dashboard.png)
-Continue to the next section to learn how to trigger manual scanning of web application protections.
+
+The next session will guide you how to execute manual scanning of web app defense.
 
 
 #### Manual Scanning
