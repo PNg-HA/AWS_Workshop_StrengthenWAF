@@ -97,31 +97,31 @@ The next session will guide you how to execute manual scanning of web app defens
 
 
 #### Manual Scanning
-This section guides you through manually scanning your web application endpoint to assess the effectiveness of your WAF rules.
+This section walks you through the process of manually scanning your web application endpoint to evaluate the effectiveness of your WAF rules.
 
 ##### Running the Manual Scanner
-Go to the Stack page, and open the link under the 4xTestProtections output in a new tab. This will perform scans against your web application endpoint. The scanner script runs tests and reports back the following information, such as:
+Navigate to the **Stack** page and open the link under the `4xTestProtections` output in a new tab. This initiates a scan of your web application endpoint. The scanner script tests your application and provides the following details:
 
-Request: The HTTP request command used (for example GET or POST)
-Result: The HTTP status code returned (for example 200 OK or 403 Forbidden)
+- **Request**: The HTTP method used (e.g., `GET` or `POST`).
+- **Result**: The HTTP status code received (e.g., `200 OK` or `403 Forbidden`).
 
+The results are color-coded to give a quick overview of your WAF rules' performance. Ideally, all tests should result in a green status code.
 
-The results are color-coded to help you quickly evaluate how your WAF rules are performing against their intended behavior. Ideally, all tests should return a green status code.
-
-Baseline Requests represent legitimate traffic that should not be blocked by your WAF rules. They should always return a 200 OK status code to ensure you haven't unintentionally blocked valid users from accessing your application.
+**Baseline Requests** simulate legitimate traffic and should not be blocked by your WAF rules. These requests must return a `200 OK` status code to ensure valid users can access your application without issues.
 
 ##### Reviewing the Scan Results
-After running the scanner script, analyze the results to answer these questions:
+After the scanner script completes, review the results to address the following:
 
-Did any baseline tests get blocked? This indicates that your WAF rules might be too restrictive and need adjustment.
-Were the simulated malicious requests successfully blocked? This shows that your WAF rules are effectively protecting your application.
+- Were any baseline tests blocked? This might indicate that your WAF rules are overly restrictive and need adjustment.
+- Did simulated malicious requests get blocked? If so, this confirms that your WAF rules are effectively protecting your application.
 
-##### Simulating Requests Yourself
-The scanner script leverages an AWS Lambda function to send test requests. You can replicate this process by sending similar requests from your own device using tools like curl on the command line.
+##### Simulating Requests Manually
+The scanner script uses an AWS Lambda function to send test requests. You can mimic this behavior by sending similar requests from your device using tools like `curl` in the command line.
 
-For very basic tests, you can even send simple GET requests directly from your browser, potentially with query string parameters, and compare the responses you receive.
+For simple tests, you can also use a browser to send basic `GET` requests with query string parameters and analyze the responses.
 
-The scan results will likely reveal security vulnerabilities that need to be addressed. The next step, remediation, involves configuring an AWS WAF Web ACL to block these malicious requests. When AWS WAF successfully blocks a request based on your rules, it returns a 403 Forbidden status code or a custom error code you've defined.
+The scan results might highlight potential security vulnerabilities. The next step, **Remediation**, involves configuring an AWS WAF Web ACL to block these malicious requests. When AWS WAF blocks a request based on your rules, it will return a `403 Forbidden` status code or a custom error code you've defined.
 
 ![manual_scanner](/images/2/manual_scanner.png)
-Congratulations! Now that you're familiar with reviewing your progress, and testing applied protections, you're well-prepared to move on to the [Remediate](3-Remediate/) section. There, you'll explore strategies for implementing essential website protections with AWS WAF.
+
+Congratulations! You’ve learned how to review your testing progress and evaluate protections. You're now ready to proceed to the [Remediate](3-Remediate/) section, where you’ll implement crucial website protections using AWS WAF.
